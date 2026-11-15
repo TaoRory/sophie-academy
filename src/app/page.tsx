@@ -1,20 +1,40 @@
 import { FloatingCta } from "@/components/FloatingCta";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { LeadProvider } from "@/components/LeadContext";
+import { Comparison } from "@/sections/Comparison";
+import { Estimator } from "@/sections/Estimator";
+import { Faq } from "@/sections/Faq";
+import { Feedback } from "@/sections/Feedback";
+import { FinalCta } from "@/sections/FinalCta";
+import { Hero } from "@/sections/Hero";
+import { HowOnline } from "@/sections/HowOnline";
+import { PainPoints } from "@/sections/PainPoints";
+import { ResultStrip } from "@/sections/ResultStrip";
+import { Results } from "@/sections/Results";
+import { Roadmap } from "@/sections/Roadmap";
+import { Teachers } from "@/sections/Teachers";
 
-// P0: khung trang. Các phần thật được dựng ở P1 theo skill sophie-section.
 export default function Home() {
   return (
-    <>
+    <LeadProvider>
       <Header />
       <main>
-        <section id="hero" data-section="hero" className="section wrap" style={{ minHeight: "70svh" }}>
-          <h1>IELTS 1 kèm 1 online. Giáo viên 8.0 dạy riêng bạn.</h1>
-          <p className="mt-6 max-w-[60ch]">Khung trang P0: nội dung các phần sẽ được dựng ở P1.</p>
-        </section>
+        <Hero />
+        <ResultStrip />
+        <PainPoints />
+        <Comparison />
+        <Roadmap />
+        <Estimator />
+        <Teachers />
+        <Results />
+        <Feedback />
+        <HowOnline />
+        <Faq />
+        <FinalCta />
       </main>
       <Footer />
       <FloatingCta />
-    </>
+    </LeadProvider>
   );
 }
