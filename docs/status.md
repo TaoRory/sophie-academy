@@ -55,4 +55,4 @@
 - site-qa có 3 khung > 50ms khi cuộn qua cảnh ghim (p95 vẫn 16.7ms); theo dõi lại trên máy thật ở P5.
 - 15/11/2026 (góp ý owner sau khi xem localhost): bỏ khối tô chữ `.kit-mark`; thêm mèo `CatRig` + `CatCompanion` (đậu và nhảy giữa các phần, vẫy chào "Hello!" khi rê/chạm, điện thoại ngồi trên thanh CTA đáy); header sinh động (logo mèo nhún, viên chỉ mục trượt, thanh tiến độ, ẩn khi cuộn xuống). site-qa 30/30, p95 16.8ms.
 - `MQ.mobileMotion` của kit sai cú pháp (`not (A) and (B)` bị đọc thành `not all`, không bao giờ khớp). Đã sửa trong `src/lib/motion.ts` bằng cách bọc `(not (...))`. Nên báo lại cho người giữ aegis-web-kit.
-- Mèo `CatRig` là hình tôi tự vẽ theo ảnh bìa: khi Sophie có file thiết kế mèo vẫy tay tách lớp, thay hình, giữ tên `data-part` và khớp.
+- 15/11/2026 (góp ý lần 2): owner muốn **giữ đúng mèo gốc của logo** và chuyển động như mèo thật. Đã thay mèo hoạt hình bằng mèo gốc (path logo, cắt chữ S) + tư thế đi dùng đầu gốc; chuỗi đi thong thả → ngắm mép → nhảy xuống → tiếp đất → ngồi; sàn ảo đáy màn hình khi không có chỗ đậu. site-qa 30/30, p95 16.8ms, 0 khung dài.

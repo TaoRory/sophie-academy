@@ -41,12 +41,12 @@ Mọi dữ kiện dưới đây đã được chép từ Drive của brand. **Kh
 | `logo-mono.svg` | Bất kỳ, màu theo `currentColor` |
 Chép sang `public/brand/` khi dựng; header dùng SVG nội tuyến để đổi màu khi cuộn nếu cần.
 
-## Chữ ký thị giác: con mèo Sophie
-Mèo cam tách lớp đi theo người xem: đậu trên các khối, nhảy sang phần mới, vẫy chào khi rê chuột/chạm (spec `sophie-section/sections/16-meo.md`). Đường uốn chữ S trong cảnh ghim Lộ trình là phần phụ.
-**Không dùng khối màu tô sau chữ (`.kit-mark`)**: owner chê "trông AI" (15/11/2026). Nhấn từ khóa bằng màu chữ `--brand-ink`. Không thêm blob, gradient, kính mờ.
+## Chữ ký thị giác: con mèo gốc của Sophie
+Đúng con mèo trong logo, đi theo người xem như mèo thật: đi thong thả trên mép các khối, cúi nhìn rồi nhảy xuống, vẫy chào khi rê chuột/chạm (spec `sophie-section/sections/16-meo.md`). **Không vẽ mèo hoạt hình khác**: owner muốn giữ mèo gốc (15/11/2026).
+**Không dùng khối màu tô sau chữ (`.kit-mark`)**: owner chê "trông AI". Nhấn từ khóa bằng màu chữ `--brand-ink`. Không thêm blob, gradient, kính mờ.
 
 ## Mascot
-- `CatRig` (vẽ tay theo mèo vẫy tay trên ảnh bìa): con mèo đi theo trang. Thay bằng file của designer khi có.
+- `CatRig`: mèo gốc của logo (ngồi) + bản đi/nhảy dùng đầu gốc, đi theo trang.
 - `Mascot` (mèo + chữ S tách từ logo, một path): dùng tĩnh ở `/cam-on`.
 - Logo header nội tuyến (`LogoInline`, nhóm `[data-logo-cat]`) nhún khi rê chuột.
 

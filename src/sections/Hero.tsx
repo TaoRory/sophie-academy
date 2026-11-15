@@ -41,7 +41,7 @@ export function Hero() {
 
         <div className="relative mt-6 lg:mt-28" data-hero-art>
           <div className="hero-cat-static" aria-hidden="true">
-            <CatRig size={110} />
+            <CatRig size={120} />
           </div>
           <div data-cat-perch="right">
           <Tilt className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-4 sm:p-5">

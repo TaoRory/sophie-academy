@@ -8,7 +8,7 @@ export function Comparison() {
         Vì sao 1 kèm 1? <span className="text-[var(--muted)]">Vì cả buổi học là của bạn.</span>
       </h2>
 
-      <Rise kind="pop" data-cat-perch="right" className="relative mt-10 overflow-x-auto pb-2" style={{ scrollSnapType: "x proximity" }}>
+      <Rise kind="pop" data-cat-perch="left" className="relative mt-10 overflow-x-auto pb-2" style={{ scrollSnapType: "x proximity" }}>
         <table className="w-full min-w-[720px] border-separate border-spacing-0 text-left">
           <caption className="sr-only">So sánh lớp đông, gia sư tự do và Sophie 1-1</caption>
           <thead>

@@ -184,7 +184,7 @@ h2 {
   }
 }
 
-/* ---------- Mèo Sophie (CatCompanion + mèo tĩnh ở hero) ---------- */
+/* ---------- Mèo Sophie gốc (CatCompanion + mèo tĩnh ở hero) ---------- */
 .cat-companion {
   position: fixed;
   left: 0;
@@ -198,34 +198,46 @@ h2 {
 .cat-companion svg {
   display: block;
   width: auto;
-  height: 110px;
+  height: 120px;
   pointer-events: auto;
   cursor: pointer;
 }
 
 .cat-companion[data-mode="mobile"] svg {
-  height: 72px;
+  height: 80px;
 }
 
-.cat-flip {
-  transform-origin: 50% 100%;
+/* Sàn ảo cho mèo ở đáy màn hình (không hiển thị) */
+.cat-floor {
+  position: fixed;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 4px;
+  height: 1px;
+  pointer-events: none;
+  visibility: hidden;
 }
 
+/* Khớp với chỗ ngồi đầu tiên của companion (mép phải khối, REST = 0.62·rộng mèo) để đổi qua không bị giật */
 .hero-cat-static {
   position: absolute;
-  right: 24px;
-  bottom: calc(100% - 6px);
+  right: 12px;
+  bottom: calc(100% - 4px);
   line-height: 0;
 }
 
 .hero-cat-static svg {
   width: auto;
-  height: 110px;
+  height: 120px;
 }
 
 @media (max-width: 63.99rem) {
+  .hero-cat-static {
+    right: 8px;
+  }
+
   .hero-cat-static svg {
-    height: 72px;
+    height: 80px;
   }
 }
 
