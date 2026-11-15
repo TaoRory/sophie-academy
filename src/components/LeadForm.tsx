@@ -69,12 +69,12 @@ export function LeadForm() {
     <form onSubmit={onSubmit} noValidate className="grid gap-5">
       <div>
         <label className={label} htmlFor="lf-name">Họ tên</label>
-        <input id="lf-name" name="name" autoComplete="name" className={field} {...inv("name")} />
+        <div className="field-pen"><input id="lf-name" name="name" autoComplete="name" className={field} {...inv("name")} /></div>
         {err("name")}
       </div>
       <div>
         <label className={label} htmlFor="lf-phone">Số điện thoại / Zalo</label>
-        <input id="lf-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" className={field} {...inv("phone")} />
+        <div className="field-pen"><input id="lf-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" className={field} {...inv("phone")} /></div>
         {err("phone")}
       </div>
       <fieldset>
@@ -116,7 +116,7 @@ export function LeadForm() {
       </div>
       <div>
         <label className={label} htmlFor="lf-slots">Khung giờ bạn thường rảnh</label>
-        <input id="lf-slots" name="slots" placeholder="Ví dụ: tối thứ 2, 4, 6" className={field} />
+        <div className="field-pen"><input id="lf-slots" name="slots" placeholder="Ví dụ: tối thứ 2, 4, 6" className={field} /></div>
       </div>
       <div>
         <label className={label} htmlFor="lf-note">Ghi chú thêm (không bắt buộc)</label>

@@ -9,13 +9,15 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { Flip } from "gsap/Flip";
 import { SplitText } from "gsap/SplitText";
+import { TextPlugin } from "gsap/TextPlugin";
 import type Lenis from "lenis";
 
-gsap.registerPlugin(ScrollTrigger, SplitText, Flip, useGSAP);
+gsap.registerPlugin(ScrollTrigger, SplitText, Flip, DrawSVGPlugin, TextPlugin, useGSAP);
 
-export { Flip, gsap, ScrollTrigger, SplitText, useGSAP };
+export { DrawSVGPlugin, Flip, gsap, ScrollTrigger, SplitText, TextPlugin, useGSAP };
 
 /** Media query dùng với gsap.matchMedia() và window.matchMedia() */
 export const MQ = {

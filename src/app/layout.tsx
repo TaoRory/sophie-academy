@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Be_Vietnam_Pro, Nunito } from "next/font/google";
+import { Be_Vietnam_Pro, Nunito, Pangolin } from "next/font/google";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { site } from "@/content/site";
 import { motionBootScript } from "@/lib/motion-boot";
@@ -9,6 +9,14 @@ const display = Nunito({
   variable: "--font-display",
   subsets: ["latin", "vietnamese"],
   weight: ["700", "800", "900"],
+  display: "swap",
+});
+
+// Chữ tay của "bút sửa bài" (ghi chú bên lề, từ sửa)
+const hand = Pangolin({
+  variable: "--font-hand",
+  subsets: ["latin", "vietnamese"],
+  weight: "400",
   display: "swap",
 });
 
@@ -31,7 +39,7 @@ export const viewport: Viewport = { themeColor: "#232a60" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
+    <html lang="vi" className={`${display.variable} ${body.variable} ${hand.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
       </head>

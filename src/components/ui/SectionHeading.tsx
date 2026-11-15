@@ -1,3 +1,5 @@
+import { SplitReveal } from "@/components/motion/SplitReveal";
+
 /** Tiêu đề phần kiểu DOL: căn giữa, một cụm nhấn màu cam đậm, có thể kèm nhãn viên phía trên và câu phụ. */
 export function SectionHeading({
   before,
@@ -22,11 +24,11 @@ export function SectionHeading({
       {tag && (
         <p className={`mb-4 inline-flex rounded-full border border-[var(--brand)] bg-white px-4 py-1.5 text-sm font-bold uppercase tracking-wide text-[var(--brand-ink)]`}>{tag}</p>
       )}
-      <h2>
+      <SplitReveal as="h2" trigger="scroll">
         {before && <>{before} </>}
         <span className="text-[var(--accent-text)]">{accent}</span>
         {after && <> {after}</>}
-      </h2>
+      </SplitReveal>
       {sub && <p className={`mt-4 text-lg text-[var(--muted)] ${center ? "mx-auto" : ""} max-w-[60ch]`}>{sub}</p>}
     </div>
   );

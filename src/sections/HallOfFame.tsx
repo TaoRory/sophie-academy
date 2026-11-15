@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Rise } from "@/components/motion/Rise";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { results } from "@/content/results";
 import { type Audience, audienceLabel } from "@/content/types";
+import { gsap, MQ, ScrollTrigger, useGSAP } from "@/lib/motion";
 
 const filters: (Audience | "all")[] = ["all", "hoc-sinh", "sinh-vien", "di-lam"];
 
@@ -14,9 +15,26 @@ export function HallOfFame() {
   const [filter, setFilter] = useState<Audience | "all">("all");
   const shown = results.filter((r) => r.consent && (filter === "all" || r.audience === filter));
   const hasData = results.some((r) => r.consent);
+  const ref = useRef<HTMLElement>(null);
+
+  // Dải điểm "đóng dấu" như con dấu chấm điểm khi thẻ vào màn hình
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MQ.anyMotion, () => {
+        ScrollTrigger.batch(".stamp", {
+          start: "top 85%",
+          once: true,
+          onEnter: (els) => gsap.from(els, { scale: 1.45, rotation: -12, duration: 0.45, ease: "power4.out", stagger: 0.08 }),
+        });
+      });
+      return () => mm.revert();
+    },
+    { scope: ref, dependencies: [filter] },
+  );
 
   return (
-    <section id="bang-vang" data-section="bang-vang" className="section bg-[var(--paper)]">
+    <section ref={ref} id="bang-vang" data-section="bang-vang" className="section bg-[var(--paper)]">
       <div className="wrap">
         <SectionHeading before="Bảng vàng" accent="học viên Sophie" sub="Kết quả thật, học viên đồng ý chia sẻ. Thông tin cá nhân trên bảng điểm đã được che." />
 
@@ -33,10 +51,10 @@ export function HallOfFame() {
         <ul className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {hasData
             ? shown.map((r, i) => (
-                <Rise as="li" kind="pop" index={i % 4} key={r.name + r.after} className="overflow-hidden rounded-[var(--r-card)] border border-[var(--line)] bg-white">
+                <Rise as="li" kind="pop" index={i % 4} key={r.name + r.after} className="card-lift overflow-hidden rounded-[var(--r-card)] border border-[var(--line)] bg-white">
                   <div className="relative aspect-[4/3] bg-[var(--brand-soft)]">
                     {r.scoreImage && <Image src={r.scoreImage} alt={`Bảng điểm IELTS của ${r.name}`} fill sizes="(min-width:1024px) 25vw, 50vw" className="object-cover" />}
-                    <span className="absolute right-3 top-0 flex flex-col items-center rounded-b-[10px] bg-[var(--brand)] px-2.5 pb-2 pt-1.5 text-[var(--ink)]">
+                    <span className="stamp absolute right-3 top-0 flex flex-col items-center rounded-b-[10px] bg-[var(--brand)] px-2.5 pb-2 pt-1.5 text-[var(--ink)]">
                       <b className="text-xl leading-none" style={{ fontFamily: "var(--font-display)" }}>{r.after}</b>
                       <span className="text-[0.6875rem] font-bold">IELTS</span>
                     </span>

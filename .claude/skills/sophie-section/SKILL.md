@@ -5,7 +5,7 @@ description: Spec dựng từng phần của landing Sophie IELTS theo bố cụ
 
 # Sophie IELTS: dựng từng phần
 
-**Cách dùng:** bố cục hiện tại theo DOL English: đọc `sections/dol-layout.md` (bảng mọi phần + ngôn ngữ chung). Spec riêng còn dùng: `sections/00-header.md` (header), `sections/06-uoc-luong.md` (công cụ ước lượng), `sections/15-trang-phu.md` (`/cam-on`, chính sách, 404). Màu/font/giọng văn: skill `sophie-brand`.
+**Cách dùng:** bố cục theo DOL English: đọc `sections/dol-layout.md`; chất riêng và mọi animation "Bút sửa bài": `sections/pen-identity.md`. Spec riêng còn dùng: `sections/00-header.md` (header), `sections/06-uoc-luong.md` (công cụ ước lượng), `sections/15-trang-phu.md` (`/cam-on`, chính sách, 404). Màu/font/giọng văn: skill `sophie-brand`.
 
 ## Quy ước chung mọi phần
 - `<section id="{id}" data-section="{id}">`, đúng một `<h2>` (riêng hero là `<h1>`). `scripts/shot.mjs` chụp theo `data-section`.

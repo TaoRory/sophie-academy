@@ -13,7 +13,7 @@ export function Reviews() {
         <ul className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3">
           {items.length
             ? items.map((t, i) => (
-                <Rise as="li" kind="pop" index={i % 3} key={t.name + (t.quote ?? t.screenshot)} className="flex w-[min(86vw,560px)] shrink-0 snap-start gap-5 rounded-[var(--r-card)] border border-[var(--line)] bg-white p-6">
+                <Rise as="li" kind="pop" index={i % 3} key={t.name + (t.quote ?? t.screenshot)} className="card-lift flex w-[min(86vw,560px)] shrink-0 snap-start gap-5 rounded-[var(--r-card)] border border-[var(--line)] bg-white p-6">
                   <div className="flex flex-1 flex-col">
                     {t.quote && <blockquote className="text-lg font-semibold leading-snug">&ldquo;{t.quote}&rdquo;</blockquote>}
                     <p className="mt-auto pt-5 font-bold">{t.name}</p>

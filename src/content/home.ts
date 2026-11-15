@@ -56,3 +56,11 @@ export const onlineFeatures: { icon: IconName; title: string; body: string }[] =
   { icon: "calendar", title: "Đổi lịch linh hoạt", body: "Lịch cố định báo trước 1 tuần, lịch tạm thời báo trước 1 ngày." },
   { icon: "swap", title: "Bảo lưu, chuyển nhượng", body: "Không thể tiếp tục thì bảo lưu theo quy định hoặc chuyển suất học." },
 ];
+
+/** Tuyên ngôn: chữ đổi màu theo cuộn; cụm `circled` được bút khoanh ở cuối. */
+export const statement = {
+  lead: "Ở Sophie, giáo viên chỉ dạy một mình bạn. Mỗi câu bạn viết, mỗi câu bạn nói đều được",
+  circled: "sửa ngay",
+  tail: "trong buổi học.",
+  note: "Đó là cách bạn tiến bộ từng ngày",
+};

@@ -226,3 +226,139 @@ h2 {
 .side-tab:focus-visible {
   transform: translateX(0);
 }
+
+/* ---------- "Bút sửa bài": giấy kẻ, chữ tay, nét bút ---------- */
+.font-hand {
+  font-family: var(--font-hand), "Comic Sans MS", cursive;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Giấy kẻ dòng như bài thi. --paper-margin: vị trí vạch lề (0 = không có lề) */
+.paper-ruled {
+  --rule: color-mix(in srgb, var(--ink) 7%, transparent);
+  background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--rule) 31px 32px);
+}
+
+.paper-margin {
+  background-image:
+    linear-gradient(90deg, transparent calc(var(--paper-margin, 44px) - 1px), color-mix(in srgb, var(--brand) 55%, transparent) calc(var(--paper-margin, 44px) - 1px) calc(var(--paper-margin, 44px) + 1px), transparent calc(var(--paper-margin, 44px) + 1px)),
+    repeating-linear-gradient(to bottom, transparent 0 calc(var(--rule-gap, 32px) - 1px), color-mix(in srgb, var(--ink) 8%, transparent) calc(var(--rule-gap, 32px) - 1px) var(--rule-gap, 32px));
+}
+
+.pen-mark {
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.pen-mark path,
+.pen-mark circle,
+.pen-mark line {
+  fill: none;
+  stroke: var(--pen, var(--brand));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Nét chờ được vẽ: chỉ khi có chuyển động (không JS / giảm chuyển động: nét đã vẽ sẵn) */
+/* đầu nét bằng: đoạn nét dài 0 với đầu tròn vẫn vẽ ra một chấm */
+[data-motion="on"] .pen-wait path {
+  stroke-dasharray: 0 99999;
+  stroke-linecap: butt;
+}
+
+/* Thẻ: nhấc nhẹ khi rê, góc hiện dấu tích bút */
+.card-lift {
+  position: relative;
+  transition: transform 0.25s var(--kit-ease-out), border-color 0.25s ease-out;
+}
+
+.card-lift::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 22px;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Cpath d='M4 18 C 9 21, 12 25, 15 28 C 20 18, 28 9, 37 4' fill='none' stroke='%23F28F20' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / contain;
+  opacity: 0;
+  transform: scale(0.6) rotate(-10deg);
+  transition: opacity 0.2s ease-out, transform 0.3s var(--kit-ease-out);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-lift:hover {
+    transform: translateY(-4px);
+    border-color: var(--brand);
+  }
+
+  .card-lift:hover::after {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Ô form: nét bút gạch dưới khi đang nhập */
+.field-pen {
+  position: relative;
+}
+
+.field-pen::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -7px;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5 C 50 2, 120 7, 198 3' fill='none' stroke='%23232A60' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+.field-pen:focus-within::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .field-pen::after {
+    transition: transform 0.35s var(--kit-ease-out);
+  }
+}
+
+/* Tờ bài ở hero: chữ sửa / ghi chú chờ bút viết (chỉ khi có chuyển động) */
+[data-motion="on"] .lc-fix,
+[data-motion="on"] .lc-note,
+[data-motion="on"] .lc-sign {
+  visibility: hidden;
+}
+
+html:not([data-motion="on"]) .lc-replay {
+  display: none;
+}
+
+/* Vị trí tờ bài ở hero: dưới CTA (màn nhỏ), nghiêng bên phải (≥1280px) */
+.hero-paper {
+  /* chừa chỗ cho mèo (96px) ngồi trên mép tờ giấy, không đè nút CTA */
+  margin: 7.5rem auto 0;
+  max-width: 380px;
+  transform: rotate(1.5deg);
+}
+
+@media (min-width: 96rem) {
+  .hero-paper {
+    position: absolute;
+    top: 9.5rem;
+    right: max(100px, calc(50% - 680px));
+    width: 300px;
+    margin: 0;
+    transform: rotate(4deg);
+  }
+}
+
+[data-motion="on"] .draw-wait :is(path, rect, circle) {
+  stroke-dasharray: 0 99999;
+  stroke-linecap: butt;
+}

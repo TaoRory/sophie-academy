@@ -5,8 +5,8 @@ Tham chiếu: dolenglish.vn. Giữ màu, font, dữ kiện Sophie; chỉ mượn
 - Nền trắng xen `--paper`; tiêu đề phần **căn giữa**, một cụm nhấn màu `--accent-text` (#CC6E10, chỉ cho chữ lớn): dùng `components/ui/SectionHeading` (`before`/`accent`/`after`, `tag` viên viền cam, `sub`).
 - Thẻ trắng viền mảnh bo `--r-card`/`--r-sheet`; nhóm thẻ dạng "một khung chia cột" (hero, liên hệ).
 - Icon nét: `components/ui/Icon` (không emoji).
-- Motion nhẹ: `SplitReveal` cho H1, `Rise kind="pop"` cho thẻ. Không cảnh ghim, không mèo chuyển động.
-- Mèo: `Mascot` (mèo + chữ S của logo) **ngồi yên** trên thẻ nghiêng bên phải hero (owner: "về như cũ, không chuyển động").
+- Chuyển động theo chất riêng "Bút sửa bài": xem `pen-identity.md`. Không cảnh ghim, không mèo chuyển động.
+- Mèo: `Mascot` (mèo + chữ S của logo) **ngồi yên** trên tờ bài ở hero (owner: "về như cũ, không chuyển động").
 
 ## Thứ tự (src/app/page.tsx)
 | id | File | Bố cục |
@@ -14,6 +14,8 @@ Tham chiếu: dolenglish.vn. Giữ màu, font, dữ kiện Sophie; chỉ mượn
 | — | `AnnouncementBar` | Dải `--brand-soft` trên cùng, đóng được |
 | header | `components/Header` | Logo, nav (Bảng vàng, Vì sao 1-1, Lộ trình, Giáo viên, Hỏi đáp), nút cam |
 | hero | `Hero` | Viên chương trình · H1 2 dòng · câu phụ · hàng 3 dữ kiện chia vạch · CTA · thẻ nghiêng 2 bên (≥1280px, minh họa + mèo) · khung 3 thẻ chương trình theo đối tượng → `#uoc-luong` |
+| tuyen-ngon | `Statement` | Câu tuyên ngôn trên giấy kẻ (sau Bảng vàng), xem pen-identity |
+| tim-loi | `FixTheMistake` | Trò tìm lỗi sai (sau Giá trị), xem pen-identity |
 | bang-vang | `HallOfFame` | Lưới 4 cột thẻ học viên, dải điểm cam ở góc, lọc theo nhóm (chỉ khi có dữ liệu); trống = 4 thẻ chờ |
 | gia-tri | `Values` | Thẻ lớn: nội dung trên (badge, tiêu đề, checklist 2 cột, hình minh họa từ `RoadmapVisuals`), 3 tab ở đáy |
 | lo-trinh | `Journey` | 5 thẻ bước có số, nối bằng đường kẻ (máy tính) |

@@ -1,8 +1,8 @@
 import { Magnetic } from "@/components/motion/Magnetic";
+import { LiveCorrection } from "@/components/pen/LiveCorrection";
 import { Rise } from "@/components/motion/Rise";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Icon } from "@/components/ui/Icon";
-import { Mascot } from "@/components/ui/Mascot";
 import { ZaloLink } from "@/components/ui/ZaloLink";
 import { heroFacts, heroPills, programs } from "@/content/home";
 import { site } from "@/content/site";
@@ -10,9 +10,9 @@ import { site } from "@/content/site";
 /** Hero kiểu DOL: căn giữa, viên chương trình, tiêu đề hai dòng, hàng dữ kiện, hình nghiêng hai bên, lưới thẻ chương trình. */
 export function Hero() {
   return (
-    <section id="hero" data-section="hero" className="relative overflow-x-clip pb-16 pt-8 sm:pt-16">
+    <section id="hero" data-section="hero" className="paper-ruled relative overflow-x-clip pb-16 pt-8 sm:pt-16">
       {/* Hình nghiêng hai bên (minh họa), chỉ màn rộng */}
-      <div aria-hidden="true" className="pointer-events-none absolute left-[max(16px,calc(50%-700px))] top-40 hidden w-60 -rotate-6 xl:block">
+      <div aria-hidden="true" className="pointer-events-none absolute left-[max(24px,calc(50%-700px))] top-40 hidden w-60 -rotate-6 min-[1536px]:block">
         <div className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-3">
           <div className="grid grid-cols-2 gap-2">
             <div className="flex aspect-[4/3] flex-col justify-end rounded-[var(--r-inner)] bg-[var(--ink)] p-2 text-xs font-bold text-white">Giáo viên</div>
@@ -21,20 +21,7 @@ export function Hero() {
           <p className="mt-2 text-xs font-semibold text-[var(--muted)]">Buổi học 1-1 (minh họa)</p>
         </div>
       </div>
-      <div aria-hidden="true" className="pointer-events-none absolute right-[max(16px,calc(50%-700px))] top-48 hidden w-64 rotate-6 xl:block">
-        <div className="relative">
-          <Mascot height={110} className="absolute bottom-[calc(100%-4px)] right-4" />
-          <div className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-4">
-            <p className="text-xs font-bold uppercase tracking-wide text-[var(--muted)]">Writing Task 2</p>
-            <p className="mt-2 text-sm leading-relaxed">
-              Many people <s className="decoration-2 decoration-[var(--brand-ink)]">is</s> <b className="text-[var(--brand-ink)]">are</b> in favour of working from home.
-            </p>
-            <p className="mt-2 text-xs text-[var(--muted)]">Sửa trực tiếp (minh họa)</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="wrap relative text-center">
+      <div className="wrap text-center">
         <ul className="flex flex-wrap justify-center gap-2" aria-label="Chương trình">
           {heroPills.map((p, i) => (
             <li key={p} className={`rounded-full px-4 py-1.5 text-sm font-extrabold ${i === 0 ? "bg-[var(--brand)] text-[var(--ink)]" : i === 1 ? "bg-[var(--ink)] text-white" : "border border-[var(--ink)] bg-white"}`}>
@@ -50,7 +37,7 @@ export function Hero() {
           Giáo viên IELTS 8.0 dạy riêng bạn qua Zoom/Meet. Lộ trình lập sau kiểm tra đầu vào và được chỉnh lại mỗi tháng.
         </p>
 
-        <dl className="mx-auto mt-6 grid sm:mt-8 max-w-[760px] grid-cols-3 divide-x divide-[var(--line)]">
+        <dl className="mx-auto mt-6 grid sm:mt-8 max-w-[640px] grid-cols-3 divide-x divide-[var(--line)]">
           {heroFacts.map((f) => (
             <div key={f.value} className="px-3">
               <dt className="sr-only">{f.label}</dt>
@@ -74,9 +61,11 @@ export function Hero() {
           <ZaloLink className="btn btn-line" />
         </div>
 
+        <LiveCorrection className="hero-paper" />
+
         <div className="mx-auto mt-12 grid max-w-[980px] overflow-hidden rounded-[var(--r-sheet)] border border-[var(--line)] bg-white text-left sm:grid-cols-3">
           {programs.map((p, i) => (
-            <Rise key={p.audience} as="a" kind="pop" index={i} href="#uoc-luong" className="group flex items-start gap-4 border-[var(--line)] p-6 transition-colors duration-200 hover:bg-[var(--brand-soft)] max-sm:border-b sm:border-r sm:last:border-r-0">
+            <Rise key={p.audience} as="a" kind="pop" index={i} href="#uoc-luong" className="group card-lift flex items-start gap-4 border-[var(--line)] p-6 transition-colors duration-200 hover:bg-[var(--brand-soft)] max-sm:border-b sm:border-r sm:last:border-r-0">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--ink)] transition-colors group-hover:bg-white">
                 <Icon name={p.icon} />
               </span>
