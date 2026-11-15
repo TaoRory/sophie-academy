@@ -1,30 +1,82 @@
 "use client";
 
-import { useId, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { gsap, MQ, ScrollTrigger, useGSAP } from "@/lib/motion";
 import { LOGO_CAT_D, LOGO_CAT_STROKE, LOGO_CAT_TRANSFORM, LOGO_EYE_D } from "./logoCatPaths";
 
 /**
  * Mèo Sophie GỐC (đúng path trong logo) ngồi yên nhưng "sống": vẫy đuôi, chớp mắt. Hình không đổi.
- * Cách làm: vẽ cùng một path hai lần, mỗi lần cắt bằng clipPath: lớp THÂN (mèo) đứng yên, lớp ĐUÔI (chữ S) quay quanh gốc đuôi.
- * Hai lớp chồng lên nhau 3px ở chỗ nối nên không hở khi đuôi quay.
+ *
+ * Cách làm: mèo và chữ S (đuôi) là MỘT path liền. Thay vì cắt rời rồi quay cứng (sẽ hở ở chỗ nối), ta UỐN path:
+ * mỗi điểm (và điểm điều khiển Bézier) được xoay quanh gốc đuôi một góc nhỏ tỷ lệ với độ cao của nó so với gốc đuôi
+ * và với việc nó nằm ở phía đuôi (x lớn). Gốc đuôi và thân mèo (trọng số 0) đứng yên, đuôi càng lên cao càng lệch,
+ * nên đuôi luôn dính liền vào thân, không có mối nối. Góc = 0 thì ra đúng hình logo.
+ *
  * - Chạy nhịp nhẹ (vẫy 4 nhịp rồi nghỉ ~4s), dừng khi khuất màn hình.
- * - Rê chuột (chuột thật): vẫy mạnh hơn. Giảm chuyển động / không JS: đứng yên.
+ * - Rê chuột (chuột thật): vẫy mạnh hơn. Giảm chuyển động / không JS: đứng yên (hình gốc).
  */
 const VIEWBOX = "170 362 246 214";
 const ASPECT = 246 / 214;
-const TAIL_PIVOT = "306 549";
-const EYE_PIVOT = "233 394";
+const ROOT = { x: 306, y: 549 }; // gốc đuôi, sát đất
+const TAIL_H = 180; // chiều cao (đơn vị logo) mà tại đó đuôi uốn đủ góc
 
-// Thân: mèo (bỏ chữ S). Đuôi: phần còn lại, cộng một mảnh lấn vào thân CHỈ ở giữa chỗ nối (x 298-309, y 512-543, nằm sâu trong thân)
-// để che mối nối khi quay. Lấn ra tới mép lưng mèo thì lúc đuôi quay sẽ lòi một vệt cam ra ngoài hình.
-const CAT_CLIP = "M150 340 L 284 340 L 284 468 L 309 503 L 309 551 L 301 551 L 301 600 L 150 600 Z";
-// Đường cắt phía trên chạy trong khoảng TRẮNG giữa lưng mèo và chữ S (không cắt vào thân mèo), nên không có điểm ảnh thân nào quay theo đuôi.
-const TAIL_CLIP = "M294 330 L 440 330 L 440 610 L 301 610 L 301 551 L 309 551 L 309 543 L 298 543 L 298 512 L 309 512 L 309 503 L 306 495 L 304 480 L 294 468 Z";
+type Seg = { cmd: string; p: number[] };
+
+/** Phân tích path (chỉ M, C, L), đổi sang toạ độ viewBox bằng ma trận của logo. */
+function parseBase(): Seg[] {
+  const m = /matrix\(([^)]+)\)/.exec(LOGO_CAT_TRANSFORM)!;
+  const [a, b, c, d, e, f] = m[1].split(",").map(Number);
+  const segs: Seg[] = [];
+  for (const part of LOGO_CAT_D.match(/[MCLZ][^MCLZ]*/g) ?? []) {
+    const cmd = part[0];
+    const nums = (part.slice(1).match(/-?\d*\.?\d+(?:e-?\d+)?/g) ?? []).map(Number);
+    const p: number[] = [];
+    for (let i = 0; i + 1 < nums.length; i += 2) p.push(a * nums[i] + c * nums[i + 1] + e, b * nums[i] + d * nums[i + 1] + f);
+    segs.push({ cmd, p });
+  }
+  return segs;
+}
+
+const smooth = (t: number) => {
+  const x = Math.min(1, Math.max(0, t));
+  return x * x * (3 - 2 * x);
+};
+
+/** Trọng số uốn: 0 ở thân và gốc đuôi, tăng dần lên phía ngọn đuôi (x lớn, y nhỏ). */
+function weight(x: number, y: number) {
+  const side = smooth((x - 294) / 24);
+  const h = Math.min(1, Math.max(0, (ROOT.y - y) / TAIL_H));
+  return side * Math.pow(h, 1.25);
+}
+
+function buildD(base: Seg[], deg: number) {
+  const k = (deg * Math.PI) / 180;
+  let out = "";
+  for (const s of base) {
+    if (s.cmd === "Z") {
+      out += "Z ";
+      continue;
+    }
+    out += s.cmd;
+    for (let i = 0; i < s.p.length; i += 2) {
+      const x = s.p[i];
+      const y = s.p[i + 1];
+      const th = k * weight(x, y);
+      const dx = x - ROOT.x;
+      const dy = y - ROOT.y;
+      const c = Math.cos(th);
+      const sn = Math.sin(th);
+      out += ` ${(ROOT.x + dx * c - dy * sn).toFixed(2)} ${(ROOT.y + dx * sn + dy * c).toFixed(2)}`;
+    }
+    out += " ";
+  }
+  return out.trim();
+}
 
 export function MascotAlive({ height = 96, className, wag = true }: { height?: number; className?: string; wag?: boolean }) {
-  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const ref = useRef<SVGSVGElement>(null);
+  const base = useMemo(() => parseBase(), []);
+  const restD = useMemo(() => buildD(base, 0), [base]);
 
   useGSAP(
     () => {
@@ -32,21 +84,23 @@ export function MascotAlive({ height = 96, className, wag = true }: { height?: n
       if (!svg || !wag) return;
       const mm = gsap.matchMedia();
       mm.add(MQ.anyMotion, () => {
-        const tail = svg.querySelector<SVGGElement>('[data-part="tail"]')!;
+        const body = svg.querySelector<SVGPathElement>('[data-part="body"]')!;
         const eye = svg.querySelector<SVGPathElement>('[data-part="eye"]')!;
-        gsap.set(tail, { svgOrigin: TAIL_PIVOT });
-        gsap.set(eye, { svgOrigin: EYE_PIVOT });
+        gsap.set(eye, { svgOrigin: "233 394" });
+
+        const sway = { a: 0 };
+        const apply = () => body.setAttribute("d", buildD(base, sway.a));
 
         const blink = () => gsap.timeline().to(eye, { scaleY: 0.1, duration: 0.07 }).to(eye, { scaleY: 1, duration: 0.09 });
         const beats = (amp: number, n: number, d: number) => {
-          const tl = gsap.timeline();
-          for (let i = 0; i < n; i++) tl.to(tail, { rotation: i % 2 ? -amp : amp, duration: d, ease: "sine.inOut" });
-          return tl.to(tail, { rotation: 0, duration: d * 1.4, ease: "sine.out" });
+          const tl = gsap.timeline({ onUpdate: apply });
+          for (let i = 0; i < n; i++) tl.to(sway, { a: i % 2 ? -amp : amp, duration: d, ease: "sine.inOut" });
+          return tl.to(sway, { a: 0, duration: d * 1.4, ease: "sine.out" });
         };
 
         // Nhịp nền: vẫy nhẹ rồi nghỉ (không chạy liên tục)
         const idle = gsap.timeline({ repeat: -1, repeatDelay: 3.6, delay: 1.5 });
-        idle.add(beats(7, 4, 0.3)).add(blink(), 0.5);
+        idle.add(beats(7, 4, 0.34)).add(blink(), 0.5);
 
         // Rê chuột: vẫy mạnh, nhanh
         let excited: gsap.core.Timeline | null = null;
@@ -55,7 +109,7 @@ export function MascotAlive({ height = 96, className, wag = true }: { height?: n
           idle.pause();
           excited = gsap
             .timeline({ onComplete: () => void idle.resume() })
-            .add(beats(11, 6, 0.17))
+            .add(beats(11, 6, 0.19))
             .add(blink(), 0.2);
         };
         svg.addEventListener("pointerenter", onEnter);
@@ -77,6 +131,7 @@ export function MascotAlive({ height = 96, className, wag = true }: { height?: n
           st.kill();
           idle.kill();
           excited?.kill();
+          body.setAttribute("d", restD);
         };
       });
       return () => mm.revert();
@@ -84,33 +139,9 @@ export function MascotAlive({ height = 96, className, wag = true }: { height?: n
     { scope: ref, dependencies: [wag] },
   );
 
-  const clipCat = `mc-cat-${uid}`;
-  const clipTail = `mc-tail-${uid}`;
-  const art = <path d={LOGO_CAT_D} transform={LOGO_CAT_TRANSFORM} fill="#F28F20" stroke="#F28F20" strokeWidth={LOGO_CAT_STROKE} />;
-
   return (
-    <svg
-      ref={ref}
-      viewBox={VIEWBOX}
-      width={Math.round(height * ASPECT)}
-      height={height}
-      className={className}
-      style={{ overflow: "visible" }}
-      aria-hidden="true"
-      focusable="false"
-    >
-      <defs>
-        <clipPath id={clipCat} clipPathUnits="userSpaceOnUse">
-          <path d={CAT_CLIP} />
-        </clipPath>
-        <clipPath id={clipTail} clipPathUnits="userSpaceOnUse">
-          <path d={TAIL_CLIP} />
-        </clipPath>
-      </defs>
-      <g clipPath={`url(#${clipCat})`}>{art}</g>
-      <g data-part="tail" clipPath={`url(#${clipTail})`}>
-        {art}
-      </g>
+    <svg ref={ref} viewBox={VIEWBOX} width={Math.round(height * ASPECT)} height={height} className={className} style={{ overflow: "visible" }} aria-hidden="true" focusable="false">
+      <path data-part="body" d={restD} fill="#F28F20" stroke="#F28F20" strokeWidth={LOGO_CAT_STROKE} strokeLinejoin="miter" />
       <path data-part="eye" d={LOGO_EYE_D} fill="#232A60" />
     </svg>
   );

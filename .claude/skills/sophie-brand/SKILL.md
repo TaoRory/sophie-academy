@@ -48,7 +48,7 @@ Bố cục theo DOL English (owner yêu cầu 15/11/2026): tiêu đề căn gi�
 **Không dùng khối màu tô sau chữ (`.kit-mark`)** (owner chê "trông AI"). Mèo **không chuyển động**.
 
 ## Mascot
-- `MascotAlive` (`src/components/cat/`): mèo gốc ngồi yên nhưng vẫy đuôi + chớp mắt (hero, /cam-on). **Không đổi hình**: cùng một path logo, chia 2 lớp bằng clipPath, chỉ đuôi chữ S quay quanh gốc đuôi; rê chuột vẫy mạnh hơn. `Mascot` (ảnh tĩnh) dùng ở thẻ menu.
+- `MascotAlive` (`src/components/cat/`): mèo gốc ngồi yên nhưng vẫy đuôi + chớp mắt (hero, /cam-on). **Không đổi hình**: cùng một path logo, UỐN đuôi chữ S (xoay từng điểm quanh gốc đuôi với trọng số tăng dần lên ngọn, thân = 0), không cắt rời; rê chuột vẫy mạnh hơn. `Mascot` (ảnh tĩnh) dùng ở thẻ menu.
 - `Mascot` (mèo + chữ S tách từ logo): ngồi yên trên thẻ nghiêng ở hero và ở `/cam-on`. Đã thử mèo đi/nhảy theo cuộn, owner bỏ.
 - Logo header nội tuyến (`LogoInline`, nhóm `[data-logo-cat]`) nhún khi rê chuột.
 
