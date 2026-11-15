@@ -1,0 +1,148 @@
+/* Token thương hiệu Sophie IELTS. Nguồn: skill sophie-brand. */
+:root {
+  --ink: #232a60;
+  --brand: #f28f20;
+  --paper: #eeeeee;
+  --white: #ffffff;
+  --brand-ink: #a65400; /* chữ cam trên nền sáng (5.4:1) */
+  --brand-soft: #fdebd6;
+  --muted: #4a5070;
+  --line: color-mix(in srgb, var(--ink) 20%, transparent);
+
+  --r-sheet: 28px;
+  --r-card: 16px;
+  --r-inner: 8px;
+
+  --section-y: clamp(72px, 10vw, 144px);
+  --gutter: clamp(20px, 4vw, 40px);
+  --kit-header: 4rem;
+  --kit-mark: var(--brand);
+}
+
+html {
+  accent-color: var(--brand);
+  scroll-padding-top: var(--kit-header);
+}
+
+::selection {
+  background: var(--brand);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.on-ink :focus-visible {
+  outline-color: var(--brand);
+}
+
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 450;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 1rem + 5.4vw, 5.25rem);
+  line-height: 1.12;
+}
+
+h2 {
+  font-size: clamp(1.875rem, 1rem + 2.6vw, 3.1rem);
+  line-height: 1.14;
+}
+
+@layer components {
+.wrap {
+  width: min(100% - 2 * var(--gutter), 1240px);
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+/* Nút: bo tròn hẳn. Chính = cam + chữ navy (5.55:1). Phụ = navy + chữ trắng. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+.btn-primary {
+  background: var(--brand);
+  color: var(--ink);
+}
+
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--brand) 88%, var(--ink));
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.btn-ink:hover {
+  background: color-mix(in srgb, var(--ink) 85%, var(--brand));
+}
+
+.btn-line {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.btn-line:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.sheet {
+  border-radius: var(--r-sheet);
+}
+
+@media (max-width: 40rem) {
+  .sheet {
+    border-radius: 20px;
+  }
+}
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
