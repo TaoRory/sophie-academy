@@ -14,9 +14,9 @@ export const site = {
 } as const;
 
 export const nav = [
-  { label: "Vì sao 1-1", href: "#vi-sao-1-1" },
+  { label: "Bảng vàng", href: "#bang-vang" },
+  { label: "Vì sao 1-1", href: "#gia-tri" },
   { label: "Lộ trình", href: "#lo-trinh" },
   { label: "Giáo viên", href: "#giao-vien" },
-  { label: "Kết quả", href: "#ket-qua" },
   { label: "Hỏi đáp", href: "#hoi-dap" },
 ] as const;

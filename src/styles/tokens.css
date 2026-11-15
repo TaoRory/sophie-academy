@@ -4,7 +4,8 @@
   --brand: #f28f20;
   --paper: #eeeeee;
   --white: #ffffff;
-  --brand-ink: #a65400; /* chữ cam trên nền sáng (5.4:1) */
+  --brand-ink: #a65400; /* chữ cam cỡ thường trên nền sáng (5.4:1) */
+  --accent-text: #cc6e10; /* cụm nhấn trong tiêu đề lớn: 3.6:1 trên trắng, 3.1:1 trên #EEE */
   --brand-soft: #fdebd6;
   --muted: #4a5070;
   --line: color-mix(in srgb, var(--ink) 20%, transparent);
@@ -151,101 +152,6 @@ h2 {
   border: 0;
 }
 
-/* ---------- Cảnh ghim Lộ trình ---------- */
-.roadmap-scene {
-  display: none;
-}
-
-.roadmap-inner {
-  padding-block: var(--section-y);
-}
-
-.kit-pin[data-live="true"] .roadmap-static {
-  display: none;
-}
-
-.kit-pin[data-live="true"] .roadmap-scene {
-  display: grid;
-}
-
-.kit-pin[data-live="true"] .roadmap-inner {
-  padding-block: 1.5rem;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .roadmap-visual {
-    animation: roadmap-in 0.45s var(--kit-ease-out) both;
-  }
-}
-
-@keyframes roadmap-in {
-  from {
-    transform: translateY(16px);
-  }
-}
-
-/* ---------- Mèo Sophie gốc (CatCompanion + mèo tĩnh ở hero) ---------- */
-.cat-companion {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 40;
-  visibility: hidden;
-  pointer-events: none;
-  will-change: transform;
-}
-
-.cat-companion svg {
-  display: block;
-  width: auto;
-  height: 120px;
-  pointer-events: auto;
-  cursor: pointer;
-}
-
-.cat-companion[data-mode="mobile"] svg {
-  height: 80px;
-}
-
-/* Sàn ảo cho mèo ở đáy màn hình (không hiển thị) */
-.cat-floor {
-  position: fixed;
-  left: var(--gutter);
-  right: var(--gutter);
-  bottom: 4px;
-  height: 1px;
-  pointer-events: none;
-  visibility: hidden;
-}
-
-/* Khớp với chỗ ngồi đầu tiên của companion (mép phải khối, REST = 0.62·rộng mèo) để đổi qua không bị giật */
-.hero-cat-static {
-  position: absolute;
-  right: 12px;
-  bottom: calc(100% - 4px);
-  line-height: 0;
-}
-
-.hero-cat-static svg {
-  width: auto;
-  height: 120px;
-}
-
-@media (max-width: 63.99rem) {
-  .hero-cat-static {
-    right: 8px;
-  }
-
-  .hero-cat-static svg {
-    height: 80px;
-  }
-}
-
-/* Companion đang chạy thì nó thay mèo tĩnh (JS lỗi hoặc giảm chuyển động: mèo tĩnh vẫn còn) */
-html[data-cat="on"] .hero-cat-static {
-  visibility: hidden;
-}
-
 /* ---------- Header sinh động ---------- */
 .site-header {
   transition: transform 0.35s var(--kit-ease-in-out), border-color 0.2s ease-out;
@@ -308,4 +214,15 @@ html[data-cat="on"] .hero-cat-static {
   45% { transform: translateY(-14%) rotate(-6deg) scale(0.97, 1.05); }
   70% { transform: translateY(0) scale(1.05, 0.93); }
   100% { transform: none; }
+}
+
+/* ---------- Tab nổi mép phải (kiểu DOL) ---------- */
+.side-tab {
+  transform: translateX(10px);
+  transition: transform 0.2s var(--kit-ease-out);
+}
+
+.side-tab:hover,
+.side-tab:focus-visible {
+  transform: translateX(0);
 }

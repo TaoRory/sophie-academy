@@ -1,11 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 import { ZaloLink } from "@/components/ui/ZaloLink";
 import { site } from "@/content/site";
 import { scrollToTarget } from "@/lib/motion";
 
-/** Nút Zalo nổi (máy tính) + thanh CTA dính đáy (điện thoại, chỉ hiện khi hero đã khuất và chưa tới form). */
+const sideTabs = [
+  { label: "Bảng vàng", href: "#bang-vang", cls: "bg-[var(--ink)] text-white" },
+  { label: "Lộ trình", href: "#lo-trinh", cls: "bg-[var(--brand)] text-[var(--ink)]" },
+  { label: "Đăng ký", href: "#dang-ky", cls: "bg-white text-[var(--ink)] border border-[var(--line)]" },
+];
+
+/**
+ * Máy tính (kiểu DOL): ba tab dính mép phải + nút lên đầu trang + Zalo (nếu có).
+ * Điện thoại: thanh CTA dính đáy, chỉ hiện khi hero đã khuất và chưa tới form.
+ */
 export function FloatingCta() {
   const [pastHero, setPastHero] = useState(false);
   const [atForm, setAtForm] = useState(false);
@@ -27,30 +37,44 @@ export function FloatingCta() {
     return () => obs.forEach((o) => o.disconnect());
   }, []);
 
-  const show = pastHero && !atForm;
-
-  const goForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const el = document.querySelector<HTMLElement>("#dang-ky");
+  const go = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const el = document.querySelector<HTMLElement>(href);
     if (!el) return;
     e.preventDefault();
     scrollToTarget(el, { offset: -64 });
   };
+  const show = pastHero && !atForm;
 
   return (
     <>
-      {site.zaloUrl && (
-        <ZaloLink className="fixed bottom-6 right-6 z-40 hidden h-14 items-center rounded-full bg-[var(--ink)] px-5 font-extrabold text-white shadow-none lg:flex">
-          {site.cta.secondary}
-        </ZaloLink>
-      )}
+      <nav aria-label="Lối tắt" className="fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 min-[1440px]:flex">
+        {sideTabs.map((t) => (
+          <a key={t.href} href={t.href} onClick={(e) => go(e, t.href)} className={`side-tab w-[92px] rounded-l-[14px] px-3 py-3 text-center text-sm font-extrabold leading-tight ${t.cls}`}>
+            {t.label}
+          </a>
+        ))}
+      </nav>
+
+      <div className="fixed bottom-6 right-6 z-40 hidden flex-col items-end gap-3 lg:flex">
+        <button
+          type="button"
+          aria-label="Lên đầu trang"
+          onClick={() => scrollToTarget(0)}
+          className={`flex h-12 w-12 items-center justify-center rounded-full border border-[var(--line)] bg-white text-[var(--ink)] transition-opacity duration-200 ${pastHero ? "opacity-100" : "pointer-events-none opacity-0"}`}
+          tabIndex={pastHero ? 0 : -1}
+        >
+          <Icon name="arrowUp" size={20} />
+        </button>
+        {site.zaloUrl && <ZaloLink className="flex h-12 items-center rounded-full bg-[var(--ink)] px-5 font-extrabold text-white">{site.cta.secondary}</ZaloLink>}
+      </div>
+
       <div
         aria-hidden={!show}
         inert={!show}
-        data-cat-perch-mobile="right"
         className="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-[var(--line)] bg-white px-3 pt-2 transition-transform duration-300 lg:hidden"
         style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))", transform: show ? "none" : "translateY(110%)" }}
       >
-        <a href="#dang-ky" onClick={goForm} className="btn btn-primary flex-1" style={{ minHeight: 48 }}>
+        <a href="#dang-ky" onClick={(e) => go(e, "#dang-ky")} className="btn btn-primary flex-1" style={{ minHeight: 48 }}>
           {site.cta.primary}
         </a>
         <ZaloLink className="btn btn-ink" />

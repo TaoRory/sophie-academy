@@ -1,63 +1,39 @@
 import Image from "next/image";
 import { Rise } from "@/components/motion/Rise";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { teachers } from "@/content/teachers";
 
+/** Đội ngũ giáo viên kiểu DOL: khung viền bo lớn, băng thẻ chân dung có chip điểm, cuộn ngang có điểm bắt. */
 export function Teachers() {
-  const featured = teachers.find((t) => t.featured) ?? teachers[0];
-  const rest = teachers.filter((t) => t !== featured);
-
   return (
-    <section id="giao-vien" data-section="giao-vien" className="px-[var(--gutter)]" style={{ paddingBlock: "calc(var(--section-y) / 2)" }}>
-      <div data-cat-perch="right" className="on-ink sheet mx-auto bg-[var(--ink)] text-white" style={{ maxWidth: 1240, padding: "clamp(28px, 5vw, 72px)" }}>
-        <h2 className="max-w-[18ch]">
-          Ai sẽ dạy bạn? <span className="text-white">Đội ngũ giáo viên IELTS 8.0.</span>
-        </h2>
-
-        {!featured ? (
-          <p data-todo="sophie" className="mt-10 max-w-[52ch] rounded-[var(--r-card)] border-2 border-dashed border-white/40 p-6">
-            Hồ sơ giáo viên đang được cập nhật.
-          </p>
-        ) : (
-          <div className="mt-10 grid gap-10 lg:grid-cols-[5fr_7fr]">
-            <Rise kind="wipe">
-              <Image src={featured.photo} alt={featured.name} width={560} height={640} className="aspect-[7/8] w-full rounded-[var(--r-card)] object-cover" />
-            </Rise>
-            <div className="flex flex-col justify-center">
-              <p className="text-[var(--brand)]" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 2rem + 3vw, 4.5rem)", fontWeight: 900, lineHeight: 1 }}>
-                IELTS {featured.band}
-              </p>
-              <h3 className="mt-3 text-3xl">{featured.name}</h3>
-              <p className="mt-3 max-w-[52ch]">{featured.experience}</p>
-              {featured.quote && <blockquote className="mt-5 max-w-[52ch] border-l-4 border-[var(--brand)] pl-4 text-lg font-semibold">{featured.quote}</blockquote>}
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {featured.strengths.map((s) => (
-                  <li key={s} className="rounded-full border border-white/50 px-3 py-1 text-sm font-semibold">
-                    {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
-
-        {rest.length > 0 && (
-          <ul className="mt-12 grid gap-0 border-t border-white/25">
-            {rest.map((t) => (
-              <li key={t.slug} className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-white/25 py-4">
-                <Image src={t.photo} alt="" width={56} height={56} className="h-14 w-14 rounded-full object-cover" />
-                <p className="min-w-40 flex-1 font-bold">{t.name}</p>
-                <p className="font-extrabold text-[var(--brand)]">IELTS {t.band}</p>
-                <p className="flex flex-wrap gap-2 text-sm">
-                  {t.strengths.map((s) => (
-                    <span key={s} className="rounded-full border border-white/50 px-3 py-1">
-                      {s}
-                    </span>
+    <section id="giao-vien" data-section="giao-vien" className="section">
+      <div className="wrap">
+        <div className="rounded-[var(--r-sheet)] border-2 border-[var(--brand)] px-5 py-10 sm:px-10">
+          <SectionHeading tag="Giáo viên dạy 1 kèm 1" before="Đội ngũ" accent="giáo viên" after="IELTS 8.0" sub="Giàu kinh nghiệm và tận tâm với từng học viên." />
+          <div className="relative mt-10">
+            <ul className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [scrollbar-width:thin]">
+              {teachers.length
+                ? teachers.map((t, i) => (
+                    <Rise as="li" kind="pop" index={i % 4} key={t.slug} className="w-[220px] shrink-0 snap-start sm:w-[240px]">
+                      <div className="relative aspect-[4/5] overflow-hidden rounded-[var(--r-card)] bg-[var(--brand-soft)]">
+                        <Image src={t.photo} alt={t.name} fill sizes="240px" className="object-cover" />
+                        <span className="absolute bottom-3 left-3 rounded-full bg-[var(--ink)] px-3 py-1 text-sm font-bold text-white">{t.band} IELTS Overall</span>
+                      </div>
+                      <p className="mt-3 text-lg font-extrabold" style={{ fontFamily: "var(--font-display)" }}>{t.name}</p>
+                      <p className="text-sm text-[var(--muted)]">{t.strengths.join(" · ")}</p>
+                    </Rise>
+                  ))
+                : Array.from({ length: 4 }, (_, i) => (
+                    <li key={i} data-todo="sophie" className="w-[220px] shrink-0 snap-start sm:w-[240px]">
+                      <div className="relative aspect-[4/5] rounded-[var(--r-card)] border-2 border-dashed border-[var(--line)] bg-[var(--paper)]">
+                        <span className="absolute bottom-3 left-3 rounded-full bg-[var(--ink)] px-3 py-1 text-sm font-bold text-white">IELTS 8.0</span>
+                      </div>
+                      <p className="mt-3 font-semibold text-[var(--muted)]">Hồ sơ đang cập nhật</p>
+                    </li>
                   ))}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Rise } from "@/components/motion/Rise";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useLead } from "@/components/LeadContext";
 import { Flip, MQ, scrollToTarget, useGSAP } from "@/lib/motion";
 import { bands, deadlines, estimatorRules, priorityFor, targets } from "@/content/estimatorRules";
@@ -60,10 +61,8 @@ export function Estimator() {
 
   return (
     <section id="uoc-luong" data-section="uoc-luong" className="section wrap">
-      <h2 className="max-w-[20ch]">
-        Thử ước lượng <span className="text-[var(--muted)]">lộ trình của bạn.</span>
-      </h2>
-      <Rise kind="pop" data-cat-perch="left" className="mt-10 grid gap-10 rounded-[var(--r-sheet)] border border-[var(--line)] p-6 sm:p-10 lg:grid-cols-[1fr_1fr]">
+      <SectionHeading before="Thử ước lượng" accent="lộ trình của bạn" sub="Chọn nhanh vài thông tin, Sophie gợi ý thứ tự kỹ năng nên ưu tiên." />
+      <Rise kind="pop" className="mt-10 grid gap-10 rounded-[var(--r-sheet)] border border-[var(--line)] p-6 sm:p-10 lg:grid-cols-[1fr_1fr]">
         <div className="grid gap-7">
           <Chips legend="Bạn là" options={audiences.map((a) => audienceLabel[a])} value={audienceLabel[audience]} onChange={(l) => setAudience(audiences.find((a) => audienceLabel[a] === l) ?? "hoc-sinh")} />
           <Chips legend="Band hiện tại" options={bands} value={band} onChange={(v) => { capture(); setBand(v); }} />

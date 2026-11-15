@@ -1,70 +1,91 @@
 import { Magnetic } from "@/components/motion/Magnetic";
+import { Rise } from "@/components/motion/Rise";
 import { SplitReveal } from "@/components/motion/SplitReveal";
-import { Tilt } from "@/components/motion/Tilt";
-import { CatRig } from "@/components/cat/CatRig";
+import { Icon } from "@/components/ui/Icon";
+import { Mascot } from "@/components/ui/Mascot";
 import { ZaloLink } from "@/components/ui/ZaloLink";
+import { heroFacts, heroPills, programs } from "@/content/home";
 import { site } from "@/content/site";
-import { skillLabel } from "@/content/types";
 
-const skills = Object.values(skillLabel);
-
+/** Hero kiểu DOL: căn giữa, viên chương trình, tiêu đề hai dòng, hàng dữ kiện, hình nghiêng hai bên, lưới thẻ chương trình. */
 export function Hero() {
   return (
-    <section id="hero" data-section="hero" className="wrap" style={{ paddingBlock: "clamp(24px, 4vw, 56px)" }}>
-      <div className="grid items-center gap-12 lg:grid-cols-[7fr_5fr]">
-        <div>
-          <SplitReveal as="h1" trigger="load" className="h1-hero">
-            IELTS 1 kèm 1 online. Giáo viên 8.0 <span className="text-[var(--brand-ink)]">dạy riêng bạn.</span>
-          </SplitReveal>
-          <p className="mt-6 max-w-[34ch] text-[clamp(1.125rem,0.9rem+0.8vw,1.5rem)] font-semibold leading-snug">
-            Lộ trình riêng, <span className="text-[var(--muted)]">kiểm tra mỗi tháng để chỉnh lại. Học ở đâu cũng được.</span>
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Magnetic>
-              <a href="#dang-ky" className="btn btn-primary" data-hero-cta>
-                <span className="kit-roll">
-                  <span>{site.cta.primary}</span>
-                  <span aria-hidden="true">{site.cta.primary}</span>
-                </span>
-              </a>
-            </Magnetic>
-            <ZaloLink className="btn btn-line" />
+    <section id="hero" data-section="hero" className="relative overflow-x-clip pb-16 pt-8 sm:pt-16">
+      {/* Hình nghiêng hai bên (minh họa), chỉ màn rộng */}
+      <div aria-hidden="true" className="pointer-events-none absolute left-[max(16px,calc(50%-700px))] top-40 hidden w-60 -rotate-6 xl:block">
+        <div className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-3">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="flex aspect-[4/3] flex-col justify-end rounded-[var(--r-inner)] bg-[var(--ink)] p-2 text-xs font-bold text-white">Giáo viên</div>
+            <div className="flex aspect-[4/3] flex-col justify-end rounded-[var(--r-inner)] bg-[var(--brand-soft)] p-2 text-xs font-bold">Bạn</div>
           </div>
-          <ul className="mt-8 flex flex-wrap gap-2" aria-label="Bốn kỹ năng">
-            {skills.map((s) => (
-              <li key={s} className="rounded-full border border-[var(--line)] px-4 py-1.5 text-[0.9375rem] font-semibold">
-                {s}
-              </li>
-            ))}
-          </ul>
+          <p className="mt-2 text-xs font-semibold text-[var(--muted)]">Buổi học 1-1 (minh họa)</p>
+        </div>
+      </div>
+      <div aria-hidden="true" className="pointer-events-none absolute right-[max(16px,calc(50%-700px))] top-48 hidden w-64 rotate-6 xl:block">
+        <div className="relative">
+          <Mascot height={110} className="absolute bottom-[calc(100%-4px)] right-4" />
+          <div className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-[var(--muted)]">Writing Task 2</p>
+            <p className="mt-2 text-sm leading-relaxed">
+              Many people <s className="decoration-2 decoration-[var(--brand-ink)]">is</s> <b className="text-[var(--brand-ink)]">are</b> in favour of working from home.
+            </p>
+            <p className="mt-2 text-xs text-[var(--muted)]">Sửa trực tiếp (minh họa)</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="wrap relative text-center">
+        <ul className="flex flex-wrap justify-center gap-2" aria-label="Chương trình">
+          {heroPills.map((p, i) => (
+            <li key={p} className={`rounded-full px-4 py-1.5 text-sm font-extrabold ${i === 0 ? "bg-[var(--brand)] text-[var(--ink)]" : i === 1 ? "bg-[var(--ink)] text-white" : "border border-[var(--ink)] bg-white"}`}>
+              {p}
+            </li>
+          ))}
+        </ul>
+
+        <SplitReveal as="h1" trigger="load" className="h1-hero mx-auto mt-4 max-w-[16ch] sm:mt-6">
+          Học IELTS 1 kèm 1 cùng <span className="text-[var(--accent-text)]">Sophie IELTS</span>
+        </SplitReveal>
+        <p className="mx-auto mt-4 max-w-[52ch] text-[1.0625rem] text-[var(--muted)] sm:mt-5 sm:text-lg">
+          Giáo viên IELTS 8.0 dạy riêng bạn qua Zoom/Meet. Lộ trình lập sau kiểm tra đầu vào và được chỉnh lại mỗi tháng.
+        </p>
+
+        <dl className="mx-auto mt-6 grid sm:mt-8 max-w-[760px] grid-cols-3 divide-x divide-[var(--line)]">
+          {heroFacts.map((f) => (
+            <div key={f.value} className="px-3">
+              <dt className="sr-only">{f.label}</dt>
+              <dd className="whitespace-nowrap text-[clamp(1.0625rem,0.75rem+1.8vw,2rem)] font-extrabold" style={{ fontFamily: "var(--font-display)" }}>
+                {f.value}
+              </dd>
+              <dd className="mt-1 text-xs font-bold uppercase tracking-wide text-[var(--muted)] sm:text-sm">{f.label}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="mt-6 flex flex-wrap justify-center gap-3 sm:mt-8">
+          <Magnetic>
+            <a href="#dang-ky" className="btn btn-primary" data-hero-cta>
+              <span className="kit-roll">
+                <span>{site.cta.primary}</span>
+                <span aria-hidden="true">{site.cta.primary}</span>
+              </span>
+            </a>
+          </Magnetic>
+          <ZaloLink className="btn btn-line" />
         </div>
 
-        <div className="relative mt-6 lg:mt-28" data-hero-art>
-          <div className="hero-cat-static" aria-hidden="true">
-            <CatRig size={120} />
-          </div>
-          <div data-cat-perch="right">
-          <Tilt className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-4 sm:p-5">
-            <p className="mb-3 text-sm font-semibold text-[var(--muted)]">Một buổi học 1-1 (minh họa)</p>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex aspect-[4/3] flex-col justify-end rounded-[var(--r-inner)] bg-[var(--ink)] p-3 text-white">
-                <span className="text-sm font-bold">Giáo viên</span>
-                <span className="text-xs opacity-100">IELTS 8.0</span>
-              </div>
-              <div className="flex aspect-[4/3] flex-col justify-end rounded-[var(--r-inner)] bg-[var(--brand-soft)] p-3">
-                <span className="text-sm font-bold">Bạn</span>
-                <span className="text-xs text-[var(--muted)]">Đang nghe và trả lời</span>
-              </div>
-            </div>
-            <div className="mt-3 rounded-[var(--r-inner)] bg-[var(--paper)] p-4">
-              <p className="text-xs font-bold uppercase tracking-wide text-[var(--muted)]">Writing Task 2</p>
-              <p className="mt-2 leading-relaxed">
-                Many people <s className="decoration-2 decoration-[var(--brand-ink)]">is</s> <span className="font-bold text-[var(--brand-ink)]">are</span> in favour of working from home.
-              </p>
-              <p className="mt-2 text-sm text-[var(--muted)]">Giáo viên: chủ ngữ số nhiều thì động từ cũng số nhiều.</p>
-            </div>
-          </Tilt>
-          </div>
+        <div className="mx-auto mt-12 grid max-w-[980px] overflow-hidden rounded-[var(--r-sheet)] border border-[var(--line)] bg-white text-left sm:grid-cols-3">
+          {programs.map((p, i) => (
+            <Rise key={p.audience} as="a" kind="pop" index={i} href="#uoc-luong" className="group flex items-start gap-4 border-[var(--line)] p-6 transition-colors duration-200 hover:bg-[var(--brand-soft)] max-sm:border-b sm:border-r sm:last:border-r-0">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--ink)] transition-colors group-hover:bg-white">
+                <Icon name={p.icon} />
+              </span>
+              <span>
+                <span className="block text-lg font-extrabold" style={{ fontFamily: "var(--font-display)" }}>{p.title}</span>
+                <span className="mt-1 block text-[0.9375rem] text-[var(--muted)]">{p.sub}</span>
+              </span>
+            </Rise>
+          ))}
         </div>
       </div>
     </section>

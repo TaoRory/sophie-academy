@@ -1,40 +1,27 @@
-"use client";
+import { Rise } from "@/components/motion/Rise";
+import { Icon } from "@/components/ui/Icon";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { onlineFeatures } from "@/content/home";
 
-import { useState } from "react";
-import { howOnline } from "@/content/howOnline";
-
+/** Học online 1-1 thế nào: hàng tiện ích có icon (kiểu "hệ thống cơ sở" của DOL), lấy từ nội quy học viên. */
 export function HowOnline() {
-  const [i, setI] = useState(0);
   return (
     <section id="hoc-online" data-section="hoc-online" className="section wrap">
-      <h2 className="max-w-[22ch]">
-        Học online 1-1 <span className="text-[var(--muted)]">diễn ra thế nào.</span>
-      </h2>
-      <div className="mt-10 grid gap-8 lg:grid-cols-[5fr_7fr]">
-        <ul className="grid content-start border-t border-[var(--line)]" role="tablist" aria-label="Các bước học online" aria-orientation="vertical">
-          {howOnline.map((h, k) => (
-            <li key={h.title} className="border-b border-[var(--line)]">
-              <button
-                type="button"
-                role="tab"
-                id={`ho-tab-${k}`}
-                aria-selected={i === k}
-                aria-controls="ho-panel"
-                onClick={() => setI(k)}
-                className={`flex w-full items-center gap-4 py-5 text-left text-xl font-extrabold transition-colors duration-200 ${i === k ? "text-[var(--ink)]" : "text-[var(--muted)]"}`}
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                <span className={`h-3 w-3 shrink-0 rounded-full ${i === k ? "bg-[var(--brand)]" : "bg-[var(--line)]"}`} />
-                {h.title}
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div id="ho-panel" data-cat-perch="right" role="tabpanel" aria-labelledby={`ho-tab-${i}`} className="rounded-[var(--r-sheet)] bg-[var(--paper)] p-8 sm:p-12">
-          <p className="text-sm font-bold uppercase tracking-wide text-[var(--muted)]">Nội quy học viên</p>
-          <p className="mt-4 max-w-[40ch] text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-semibold leading-snug">{howOnline[i].body}</p>
-        </div>
-      </div>
+      <SectionHeading tag="Nội quy học viên" before="Học online" accent="1 kèm 1" after="diễn ra thế nào" />
+      <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {onlineFeatures.map((f, i) => (
+          <Rise as="li" kind="pop" index={i} key={f.title} className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-6 lg:border-0 lg:border-r lg:rounded-none lg:last:border-r-0">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--ink)]">
+              <Icon name={f.icon} />
+            </span>
+            <h3 className="mt-4 text-lg">{f.title}</h3>
+            <p className="mt-2 text-[0.9375rem] text-[var(--muted)]">{f.body}</p>
+          </Rise>
+        ))}
+      </ul>
+      <p className="mx-auto mt-10 max-w-[60ch] rounded-[var(--r-card)] sm:rounded-full bg-[var(--brand-soft)] px-6 py-3 text-center font-bold">
+        Học nghiêm túc – Tiến bộ từng ngày – Chinh phục mục tiêu IELTS
+      </p>
     </section>
   );
 }
