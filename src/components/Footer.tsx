@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
-import { nav, site } from "@/content/site";
+import { menu } from "@/content/menu";
+import { site } from "@/content/site";
 
 /** Footer kiểu DOL: nền navy tràn ngang, nhiều cột. */
 export function Footer() {
@@ -12,8 +13,8 @@ export function Footer() {
   const socials = [site.facebook && { label: "Facebook", href: site.facebook }, site.tiktok && { label: "TikTok", href: site.tiktok }].filter(Boolean) as { label: string; href: string }[];
 
   return (
-    <footer data-section="footer" className="on-ink bg-[var(--ink)] text-white">
-      <div className="wrap grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[4fr_3fr_3fr_3fr]">
+    <footer data-section="footer" className="on-ink footer-edge bg-[var(--ink)] text-white">
+      <div className="wrap grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[4fr_3fr_4fr_3fr]">
         <div>
           <Logo variant="navy" height={64} />
           <p className="mt-4 max-w-[34ch] font-semibold">{site.slogan}</p>
@@ -45,9 +46,9 @@ export function Footer() {
         <div>
           <p className="mb-4 text-sm font-bold uppercase tracking-wide text-white/80">Khám phá</p>
           <ul className="grid gap-2">
-            {nav.map((n) => (
-              <li key={n.href}>
-                <Link className="underline-offset-4 hover:underline" href={`/${n.href}`}>{n.label}</Link>
+            {menu.flatMap((m) => (m.groups ? m.groups.flatMap((g) => g.links) : [{ label: m.label, href: m.href! }])).filter((l, i, arr) => arr.findIndex((x) => x.href === l.href) === i && !l.href.includes("#")).map((l) => (
+              <li key={l.href}>
+                <Link className="underline-offset-4 hover:underline" href={l.href}>{l.label}</Link>
               </li>
             ))}
           </ul>
@@ -55,8 +56,8 @@ export function Footer() {
         <div>
           <p className="mb-4 text-sm font-bold uppercase tracking-wide text-white/80">Đăng ký</p>
           <ul className="grid gap-2">
-            <li><Link className="underline-offset-4 hover:underline" href="/#dang-ky">{site.cta.primary}</Link></li>
-            <li><Link className="underline-offset-4 hover:underline" href="/#uoc-luong">Ước lượng lộ trình</Link></li>
+            <li><Link className="underline-offset-4 hover:underline" href="/dang-ky">{site.cta.primary}</Link></li>
+            <li><Link className="underline-offset-4 hover:underline" href="/cong-cu/uoc-luong-lo-trinh">Ước lượng lộ trình</Link></li>
           </ul>
         </div>
       </div>

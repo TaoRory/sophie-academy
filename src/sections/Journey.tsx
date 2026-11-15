@@ -84,9 +84,9 @@ export function Journey() {
   );
 
   return (
-    <section id="lo-trinh" data-section="lo-trinh" className="section bg-[var(--paper)]">
+    <section id="lo-trinh" data-section="lo-trinh" className="section band-orange">
       <div className="wrap">
-        <SectionHeading before="Hành trình" accent="cùng Sophie" sub="Từ buổi kiểm tra đầu vào tới ngày đi thi, mỗi bước đều có giáo viên đi cùng." />
+        <SectionHeading tone="orange" before="Hành trình" accent="cùng Sophie" sub="Từ buổi kiểm tra đầu vào tới ngày đi thi, mỗi bước đều có giáo viên đi cùng." />
         <ol ref={listRef} className="relative mt-12 grid gap-4 lg:grid-cols-5">
           {geo.d && (
             <svg aria-hidden="true" className="pen-mark pen-wait pointer-events-none absolute inset-0 z-[5]" width={geo.w} height={geo.h} viewBox={`0 0 ${geo.w} ${geo.h}`}>
@@ -94,9 +94,9 @@ export function Journey() {
             </svg>
           )}
           {roadmapSteps.map((s, i) => (
-            <li key={s.title} className="card-lift relative flex gap-4 rounded-[var(--r-card)] border border-[var(--line)] bg-white/90 p-5 lg:block lg:text-center">
+            <li key={s.title} className="card-lift relative flex gap-4 rounded-[var(--r-card)] border border-[var(--line)] bg-white p-5 text-[var(--ink)] lg:block lg:text-center">
               <span className="relative z-10 shrink-0 lg:mx-auto lg:block lg:w-fit">
-                <span data-step-dot className="flex h-14 w-14 items-center justify-center rounded-full border-4 border-[var(--paper)] bg-[var(--ink)] text-xl font-extrabold text-white" style={{ fontFamily: "var(--font-display)" }}>
+                <span data-step-dot className="flex h-14 w-14 items-center justify-center rounded-full border-4 border-[var(--brand)] bg-[var(--ink)] text-xl font-extrabold text-white" style={{ fontFamily: "var(--font-display)" }}>
                   {i + 1}
                 </span>
                 <span data-step-tick className="absolute -right-5 -top-3 block h-7 w-8">

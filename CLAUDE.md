@@ -1,6 +1,6 @@
 # Sophie IELTS: landing page
 
-Landing một trang thu lead cho Sophie IELTS (IELTS 1 kèm 1 online). Kế hoạch đầy đủ: `docs/master-plan.md`. **Không đọc lại cả file đó khi làm việc thường ngày**; dùng các skill dưới đây, chúng đã tách sẵn phần cần thiết.
+Website nhiều trang thu lead cho Sophie IELTS (IELTS 1 kèm 1 online): trang chủ + trang con theo menu xổ xuống (`src/content/menu.ts`). Kế hoạch đầy đủ: `docs/master-plan.md`. **Không đọc lại cả file đó khi làm việc thường ngày**; dùng các skill dưới đây, chúng đã tách sẵn phần cần thiết.
 
 ## Bắt đầu mỗi phiên
 1. Đọc `docs/status.md` (giai đoạn hiện tại, việc đang dở, thứ đang chờ Sophie).
@@ -30,7 +30,7 @@ docs/status.md            # trạng thái sống: phase, checklist, chờ Sophie
 assets/brand-source/      # file gốc từ Drive (PNG 4K, .ai, PDF): KHÔNG đọc, chỉ xử lý bằng script
 assets/brand/             # logo SVG đã chuẩn hóa màu (nguồn để chép vào public/)
 scripts/                  # site-qa.mjs (GPU), shot.mjs (chụp 1 phần)
-src/app/                  # page.tsx, cam-on/, chinh-sach-bao-mat/, api/lead/, not-found.tsx
+src/app/                  # page.tsx (trang chủ), 12 trang con theo menu (xem sections/00-header.md), cam-on/, chinh-sach-bao-mat/, api/lead/, not-found.tsx
 src/sections/             # mỗi phần một file, tên theo id trong sophie-section
 src/content/              # toàn bộ chữ và dữ liệu (teachers, results, faq, painPoints, estimatorRules, site)
 src/components/motion/    # recipe chép từ kit (SplitReveal, Rise, ...)

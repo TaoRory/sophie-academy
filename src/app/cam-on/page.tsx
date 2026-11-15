@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
 import { Mascot } from "@/components/ui/Mascot";
 import { ZaloLink } from "@/components/ui/ZaloLink";
 
@@ -12,7 +10,6 @@ const steps = ["Sophie liên hệ bạn qua điện thoại hoặc Zalo.", "Bạ
 export default function ThanksPage() {
   return (
     <>
-      <Header />
       <main className="section wrap">
         <Mascot height={140} />
         <h1 className="mt-6 max-w-[16ch]">Sophie đã nhận thông tin của bạn.</h1>
@@ -31,7 +28,6 @@ export default function ThanksPage() {
           </Link>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

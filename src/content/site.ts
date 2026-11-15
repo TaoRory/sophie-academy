@@ -12,11 +12,3 @@ export const site = {
   tiktok: null as string | null, // TODO(sophie)
   legalName: null as string | null, // TODO(sophie): tên pháp nhân cho footer và chính sách
 } as const;
-
-export const nav = [
-  { label: "Bảng vàng", href: "#bang-vang" },
-  { label: "Vì sao 1-1", href: "#gia-tri" },
-  { label: "Lộ trình", href: "#lo-trinh" },
-  { label: "Giáo viên", href: "#giao-vien" },
-  { label: "Hỏi đáp", href: "#hoi-dap" },
-] as const;

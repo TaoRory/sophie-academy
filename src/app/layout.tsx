@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro, Nunito, Pangolin } from "next/font/google";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { SiteShell } from "@/components/SiteShell";
 import { site } from "@/content/site";
 import { motionBootScript } from "@/lib/motion-boot";
 import "./globals.css";
@@ -44,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
       </head>
       <body>
-        {children}
+        <SiteShell>{children}</SiteShell>
         <MotionProvider />
       </body>
     </html>

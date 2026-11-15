@@ -1,7 +1,3 @@
-import { FloatingCta } from "@/components/FloatingCta";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { LeadProvider } from "@/components/LeadContext";
 import { AnnouncementBar } from "@/sections/AnnouncementBar";
 import { Estimator } from "@/sections/Estimator";
 import { Faq } from "@/sections/Faq";
@@ -19,9 +15,8 @@ import { Values } from "@/sections/Values";
 // Bố cục theo DOL English + chất riêng "Bút sửa bài" (spec: .claude/skills/sophie-section/sections/pen-identity.md).
 export default function Home() {
   return (
-    <LeadProvider>
+    <>
       <AnnouncementBar />
-      <Header />
       <main>
         <Hero />
         <HallOfFame />
@@ -36,8 +31,6 @@ export default function Home() {
         <Faq />
         <FinalCta />
       </main>
-      <Footer />
-      <FloatingCta />
-    </LeadProvider>
+    </>
   );
 }

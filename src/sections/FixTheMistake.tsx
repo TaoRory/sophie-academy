@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { PenMark } from "@/components/pen/PenMark";
+import { CtaLink } from "@/components/ui/CtaLink";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/content/site";
 import { mistakes } from "@/content/mistakes";
@@ -120,12 +121,12 @@ export function FixTheMistake() {
               </p>
               <p className="mt-3 max-w-[52ch] text-lg">Ở Sophie, mỗi buổi học là như vậy: giáo viên chỉ ra đúng lỗi của bạn và giải thích ngay.</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="#dang-ky" className="btn btn-primary">
+                <CtaLink className="btn btn-primary">
                   <span className="kit-roll">
                     <span>{site.cta.primary}</span>
                     <span aria-hidden="true">{site.cta.primary}</span>
                   </span>
-                </a>
+                </CtaLink>
                 <button type="button" onClick={restart} className="btn btn-line">
                   Làm lại
                 </button>

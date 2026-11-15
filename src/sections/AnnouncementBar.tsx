@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CtaLink } from "@/components/ui/CtaLink";
 import { Icon } from "@/components/ui/Icon";
 import { announcement } from "@/content/home";
 
@@ -9,15 +10,15 @@ export function AnnouncementBar() {
   const [open, setOpen] = useState(true);
   if (!open) return null;
   return (
-    <div className="bg-[var(--brand-soft)] text-[var(--ink)]">
+    <div className="bg-[var(--brand)] text-[var(--ink)]">
       <div className="wrap flex min-h-11 items-center justify-center gap-3 py-2 text-center text-[0.9375rem]">
         <p className="font-semibold">
           {announcement.text}{" "}
-          <a href={announcement.link.href} className="whitespace-nowrap font-bold text-[var(--brand-ink)] underline underline-offset-4">
+          <CtaLink className="whitespace-nowrap font-extrabold underline underline-offset-4">
             {announcement.link.label}
-          </a>
+          </CtaLink>
         </p>
-        <button type="button" onClick={() => setOpen(false)} aria-label="Đóng thông báo" className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full hover:bg-white/70">
+        <button type="button" onClick={() => setOpen(false)} aria-label="Đóng thông báo" className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full hover:bg-white/40">
           <Icon name="close" size={18} />
         </button>
       </div>

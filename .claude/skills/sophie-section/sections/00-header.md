@@ -1,13 +1,19 @@
-# 00 Header (`Header.tsx`)
-- **Nội dung:** logo (`logo-on-light.svg`, SVG nội tuyến) · neo: Vì sao 1-1 (`#vi-sao-1-1`) · Lộ trình (`#lo-trinh`) · Giáo viên (`#giao-vien`) · Kết quả (`#ket-qua`) · Hỏi đáp (`#hoi-dap`) · nút chính **Nhận lộ trình riêng** → `#dang-ky`.
-- **Bố cục:** dính trên cùng, nền trắng; sau 80px cuộn thì thu thấp và có viền dưới. `:root { --kit-header: 4rem }`.
-- **Điện thoại:** logo + nút "Nhận lộ trình" + nút Menu (ngăn kéo toàn màn, khóa cuộn nền, focus trap, Esc đóng).
-- **Motion:** `.kit-roll` cho chữ nút; link neo cuộn bằng `scrollToTarget()` của `@/lib/motion` (bù chiều cao header). Menu mở 0.4s `EASE.inOut`.
-- **Xong khi:** neo tới đúng chỗ không bị header che; Tab qua menu thấy focus; mở menu thì trang sau không cuộn.
+# 00 Header + menu nhiều trang (owner yêu cầu 15/11/2026: "không chỉ cuộn", menu kiểu DOL)
+Dữ liệu menu: `src/content/menu.ts` (nguồn duy nhất; Header, Footer, breadcrumb đều đọc từ đây). Header render trong `SiteShell` (root layout) nên mọi trang đều có.
 
-## Sinh động (15/11/2026, theo góp ý owner)
-- Logo nội tuyến `LogoInline` (sinh từ `assets/brand/logo-on-light.svg` vào `src/components/ui/logoMarkup.ts`, không sửa tay); rê chuột thì `[data-logo-cat]` nhún (CSS `logo-cat-hop`). Thu gọn = `scale(.86)`, header luôn cao 4rem.
-- Viên chỉ mục `.nav-pill`: `clip-path: inset(...)` ghi qua ref, CSS transition 0.35s; theo mục đang xem (IntersectionObserver, rootMargin -45%/-50%) hoặc mục đang rê.
-- Thanh tiến độ `.header-progress`: `scaleX` từ `ScrollTrigger` (start 0, end max).
-- Ẩn khi cuộn xuống (`data-hidden` → `translateY(-100%)`), hiện khi cuộn lên. Không ẩn khi: `scrollY < 400`, giảm chuyển động, focus trong header, menu mở, đang ở cảnh ghim `#lo-trinh[data-live]`. Bấm link neo thì không ẩn trong 1.5s.
-- Lưu ý test: Lenis ghi đè `window.scrollTo`, muốn test hướng cuộn phải dùng `mouse.wheel`.
+## Cấu trúc menu
+| Mục | Loại | Trang |
+|---|---|---|
+| Về Sophie | xổ xuống 2 cột | `/ve-sophie`, `/doi-ngu-giao-vien`, `/noi-quy`, `/hoi-dap` |
+| Chương trình | xổ xuống 2 cột | `/chuong-trinh` (+ `/hoc-sinh`, `/sinh-vien`, `/nguoi-di-lam`), `/chuong-trinh/4-ky-nang#listening…` |
+| Điểm & Review | link | `/diem-va-review` |
+| Công cụ miễn phí | xổ xuống | `/cong-cu/tim-loi-sai`, `/cong-cu/uoc-luong-lo-trinh` |
+| (nút cam) Nhận lộ trình riêng | `CtaLink` | `/dang-ky` (trang có form `#dang-ky` thì cuộn tại chỗ) |
+Thêm mục / trang: sửa `menu.ts`, tạo `src/app/<đường-dẫn>/page.tsx` dùng `PageHero` + các section có sẵn + `FinalCta`.
+
+## Hành vi (Header.tsx)
+- Xổ xuống: rê chuột thật mở (trễ đóng 160ms), bấm/Enter mở-đóng, Esc đóng và trả focus, bấm ngoài đóng, đổi trang đóng. Bảng xổ có cột liên kết + thẻ navy CTA kèm mèo `Mascot`.
+- Gạch chân cam `.menu-item::after` cho mục đang mở / đang ở trang (usePathname).
+- Logo nội tuyến: mèo nhún khi rê. Thanh tiến độ cuộn `.header-progress`. Ẩn khi cuộn xuống, hiện khi cuộn lên (không ẩn: `scrollY < 400`, giảm chuyển động, menu mở, focus trong header, bấm link).
+- Điện thoại: nút Menu → ngăn kéo navy, nhóm accordion; khóa cuộn nền, Esc, focus trap.
+- Lenis ghi đè `window.scrollTo`: test hướng cuộn bằng `mouse.wheel`.

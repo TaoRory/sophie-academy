@@ -17,6 +17,7 @@ const paths: Record<string, React.ReactNode> = {
   arrowUp: <path d="M12 19V5M6 11l6-6 6 6" />,
   arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
   close: <path d="M6 6l12 12M18 6 6 18" />,
+  chevron: <path d="m6 9 6 6 6-6" />,
 };
 
 export type IconName = keyof typeof paths;

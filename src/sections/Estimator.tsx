@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { Rise } from "@/components/motion/Rise";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -29,6 +30,7 @@ function Chips<T extends string>({ legend, options, value, onChange }: { legend:
 }
 
 export function Estimator() {
+  const router = useRouter();
   const { audience, setAudience, setPrefill } = useLead();
   const [band, setBand] = useState<(typeof bands)[number] | null>(null);
   const [target, setTarget] = useState<(typeof targets)[number] | null>(null);
@@ -57,6 +59,7 @@ export function Estimator() {
     setPrefill({ currentBand: band, target, deadline });
     const el = document.querySelector<HTMLElement>("#dang-ky");
     if (el) scrollToTarget(el, { offset: -64 });
+    else router.push("/dang-ky"); // trang không có form: sang trang đăng ký (lựa chọn giữ trong LeadContext)
   };
 
   return (

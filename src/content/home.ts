@@ -16,10 +16,10 @@ export const heroFacts = [
   { value: "Mỗi tháng", label: "Kiểm tra, chỉnh lộ trình" },
 ];
 
-export const programs: { audience: Audience; icon: IconName; title: string; sub: string }[] = [
-  { audience: "hoc-sinh", icon: "book", title: "IELTS cho học sinh", sub: "THCS & THPT, kiểm tra tiến độ mỗi tháng" },
-  { audience: "sinh-vien", icon: "target", title: "IELTS cho sinh viên", sub: "Tốt nghiệp, học bổng, du học" },
-  { audience: "di-lam", icon: "calendar", title: "IELTS cho người đi làm", sub: "Học buổi tối, lịch linh hoạt" },
+export const programs: { audience: Audience; slug: string; icon: IconName; title: string; sub: string }[] = [
+  { audience: "hoc-sinh", slug: "hoc-sinh", icon: "book", title: "IELTS cho học sinh", sub: "THCS & THPT, kiểm tra tiến độ mỗi tháng" },
+  { audience: "sinh-vien", slug: "sinh-vien", icon: "target", title: "IELTS cho sinh viên", sub: "Tốt nghiệp, học bổng, du học" },
+  { audience: "di-lam", slug: "nguoi-di-lam", icon: "calendar", title: "IELTS cho người đi làm", sub: "Học buổi tối, lịch linh hoạt" },
 ];
 
 export const values: { tab: string; tabSub: string; badge: string; title: string; points: string[]; visuals: number[] }[] = [

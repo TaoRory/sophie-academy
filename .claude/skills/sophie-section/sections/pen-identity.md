@@ -13,9 +13,9 @@ Ràng buộc owner: **không tô nền sau chữ**, **mèo không chuyển độ
 | Phần | Tầng | Ghi chú |
 |---|---|---|
 | Hero tờ bài | T4 | ≥1536px nghiêng bên phải; nhỏ hơn: dưới CTA (margin-top 7.5rem để mèo không đè CTA) |
-| `Statement` (#tuyen-ngon) | **T2 #1** | SplitText words, màu `--muted` → `--ink` theo cuộn; vòng bút quanh "sửa ngay" là **lớp phủ đo vị trí** (không đặt trong đoạn bị tách) |
+| `Statement` (#tuyen-ngon) | **T2 #1** | Nền navy: SplitText words, màu `#9da2c4` → trắng theo cuộn; vòng bút quanh "sửa ngay" là **lớp phủ đo vị trí** (không đặt trong đoạn bị tách) |
 | `FixTheMistake` (#tim-loi) | **T3** | 3 câu trong `content/mistakes.ts`; từ là `<button>`; đúng: gạch + viết + tích; sai: khoanh lỗi thật; kết quả aria-live |
-| `Journey` (#lo-trinh) | **T2 #2** | Nét cong qua tâm 5 vòng số (đo DOM, Catmull-Rom), DrawSVG scrub; tích bật/tắt theo tiến độ; ngang (máy tính) / dọc (điện thoại) |
+| `Journey` (#lo-trinh) | **T2 #2** | Nền cam, nét bút navy (`--pen`); nét cong qua tâm 5 vòng số (đo DOM, Catmull-Rom), DrawSVG scrub; tích bật/tắt theo tiến độ; ngang (máy tính) / dọc (điện thoại) |
 | Tiêu đề phần | T1 | `SectionHeading` dùng `SplitReveal trigger="scroll"` |
 | Giá trị | T1 | Tích bút so le; đổi tab: hình "đặt xuống bàn" |
 | Bảng vàng | T1 | Dải điểm `.stamp` đóng dấu (khi có dữ liệu) |

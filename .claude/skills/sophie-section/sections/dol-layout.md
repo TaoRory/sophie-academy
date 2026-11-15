@@ -1,4 +1,4 @@
-# Bố cục kiểu DOL English (owner yêu cầu 15/11/2026)
+# Bố cục kiểu DOL English + theme navy/cam (owner yêu cầu 15/11/2026)
 Tham chiếu: dolenglish.vn. Giữ màu, font, dữ kiện Sophie; chỉ mượn bố cục và nhịp. Nội dung: `src/content/home.ts` (+ `results`, `teachers`, `testimonials`, `faq`, `roadmap`).
 
 ## Ngôn ngữ chung
@@ -30,3 +30,14 @@ Tham chiếu: dolenglish.vn. Giữ màu, font, dữ kiện Sophie; chỉ mượn
 
 ## Đã kiểm (15/11/2026)
 site-qa 30/30, p95 16.8ms; CTA hero trong màn đầu ở 1280×720, 1366×768, 375×667; form báo lỗi thật khi chưa có webhook; ước lượng điền sẵn form.
+
+## Theme navy + cam (15/11/2026)
+Hero và các dải xen kẽ dùng màu brand rõ: **navy `.brand-hero` / `.band-navy`**, **cam `.band-orange`** (chữ navy, nét bút navy), xen trắng / `--paper`.
+- `.brand-hero`: nền navy, góc cam chéo trên phải + góc xám chéo dưới trái (như ảnh bìa); `--sm` cho trang con. `PageHero` dùng class này.
+- Trang chủ theo thứ tự: dải thông báo **cam** → hero **navy** → Bảng vàng (xám) → Tuyên ngôn **navy** → Giá trị (trắng) → Tìm lỗi (xám) → Hành trình **cam** → Giáo viên (trắng) → Cảm nhận (xám) → Học online (trắng) → Ước lượng (trắng) → Hỏi đáp (xám) → Đăng ký **navy** → footer navy (viền cam 6px).
+- `SectionHeading tone="light|dark|orange"`: dark = chữ trắng + nhấn `--brand`; orange = toàn chữ navy (trắng trên cam chỉ 2.4:1, cấm).
+- Nút viền trên nền tối tự đổi trắng (`.on-ink/.brand-hero/.band-navy .btn-line`).
+- Tab nổi mép phải (≥1440px) là link trang: Điểm & Review, Phương pháp 1-1, Nhận lộ trình; màu trắng/navy để không chìm vào góc cam.
+
+## Trang con (mỗi trang: `PageHero` + section có sẵn + `FinalCta`)
+`/ve-sophie` Values+Statement+HowOnline+Journey · `/doi-ngu-giao-vien` Teachers · `/noi-quy` `NoiQuy` (6 thẻ, chép từ ảnh nội quy) · `/hoi-dap` Faq · `/chuong-trinh` (index) · `/chuong-trinh/[slug]` `AudiencePains`+HowOnline+Journey · `/chuong-trinh/4-ky-nang` `SkillBlocks` (TODO(sophie) duyệt nội dung) · `/diem-va-review` HallOfFame+Reviews · `/cong-cu/tim-loi-sai` FixTheMistake · `/cong-cu/uoc-luong-lo-trinh` Estimator · `/dang-ky` `FinalCta tone="light"`.

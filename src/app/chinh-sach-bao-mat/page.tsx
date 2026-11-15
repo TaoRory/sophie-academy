@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -12,7 +10,6 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <>
-      <Header />
       <main className="section wrap" style={{ maxWidth: 820 }}>
         <h1 style={{ fontSize: "clamp(2rem, 1rem + 3vw, 3rem)" }}>Chính sách bảo mật</h1>
         <div className="mt-8 flex flex-col gap-6 [&_h2]:mt-4 [&_h2]:text-2xl [&_ul]:list-disc [&_ul]:pl-6">
@@ -38,7 +35,6 @@ export default function PrivacyPage() {
           </p>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

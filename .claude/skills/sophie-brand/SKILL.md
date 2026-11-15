@@ -42,6 +42,7 @@ Mọi dữ kiện dưới đây đã được chép từ Drive của brand. **Kh
 Chép sang `public/brand/` khi dựng; header dùng SVG nội tuyến để đổi màu khi cuộn nếu cần.
 
 ## Phong cách
+**Theme navy + cam rõ** (owner 15/11/2026): hero navy với góc cam/xám chéo như ảnh bìa, dải xen kẽ navy / cam / trắng. Chi tiết `sophie-section/sections/dol-layout.md`. Site nhiều trang có menu xổ xuống (`content/menu.ts`), không phải landing một trang.
 **Chất riêng: "Bút sửa bài"**: giấy kẻ dòng, nét bút cam của giáo viên (tích, vòng, mũi tên, chữ tay Pangolin). Spec: `sophie-section/sections/pen-identity.md`.
 Bố cục theo DOL English (owner yêu cầu 15/11/2026): tiêu đề căn giữa có cụm nhấn `--accent-text` (#CC6E10, 3.6:1, chỉ chữ lớn), thẻ trắng viền mảnh, icon nét. Chi tiết: `sophie-section/sections/dol-layout.md`.
 **Không dùng khối màu tô sau chữ (`.kit-mark`)** (owner chê "trông AI"). Mèo **không chuyển động**.
