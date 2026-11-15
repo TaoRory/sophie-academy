@@ -14,14 +14,22 @@ export function VelocityMarquee({
   className,
   speed = 0.6,
   reverse = false,
+  paused = false,
 }: {
   children: ReactNode;
   className?: string;
   /** px mỗi khung hình khi không cuộn */
   speed?: number;
   reverse?: boolean;
+  /** Tạm dừng chạy (nút dừng của người dùng) */
+  paused?: boolean;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(paused);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -35,7 +43,7 @@ export function VelocityMarquee({
     const io = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting));
     io.observe(track);
     const tick = () => {
-      if (!visible) return;
+      if (!visible || pausedRef.current) return;
       const lenis = getLenis();
       const v = reactive ? (lenis ? lenis.velocity : window.scrollY - lastY) : 0;
       lastY = window.scrollY;

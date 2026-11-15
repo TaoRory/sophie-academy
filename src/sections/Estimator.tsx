@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Rise } from "@/components/motion/Rise";
 import { useLead } from "@/components/LeadContext";
-import { scrollToTarget } from "@/lib/motion";
+import { Flip, MQ, scrollToTarget, useGSAP } from "@/lib/motion";
 import { bands, deadlines, estimatorRules, priorityFor, targets } from "@/content/estimatorRules";
 import { type Audience, audienceLabel, skillLabel } from "@/content/types";
 
@@ -33,6 +34,22 @@ export function Estimator() {
   const [deadline, setDeadline] = useState<(typeof deadlines)[number] | null>(null);
   const ready = band && target && deadline;
   const order = ready ? priorityFor(band, deadline) : null;
+  const orderKey = order?.join(",");
+  const listRef = useRef<HTMLOListElement>(null);
+  const flipState = useRef<Flip.FlipState | null>(null);
+
+  // Ghi vị trí cũ của các hàng trước khi đổi lựa chọn, rồi Flip về vị trí mới sau khi React vẽ lại.
+  const capture = () => {
+    if (listRef.current && window.matchMedia(MQ.anyMotion).matches) flipState.current = Flip.getState(listRef.current.children);
+  };
+  useGSAP(
+    () => {
+      const state = flipState.current;
+      flipState.current = null;
+      if (state && listRef.current) Flip.from(state, { duration: 0.5, ease: "power3.inOut" });
+    },
+    { dependencies: [orderKey], scope: listRef },
+  );
 
   const send = () => {
     if (!ready) return;
@@ -46,19 +63,19 @@ export function Estimator() {
       <h2 className="max-w-[20ch]">
         Thử ước lượng <span className="text-[var(--muted)]">lộ trình của bạn.</span>
       </h2>
-      <div className="mt-10 grid gap-10 rounded-[var(--r-sheet)] border border-[var(--line)] p-6 sm:p-10 lg:grid-cols-[1fr_1fr]">
+      <Rise kind="pop" className="mt-10 grid gap-10 rounded-[var(--r-sheet)] border border-[var(--line)] p-6 sm:p-10 lg:grid-cols-[1fr_1fr]">
         <div className="grid gap-7">
           <Chips legend="Bạn là" options={audiences.map((a) => audienceLabel[a])} value={audienceLabel[audience]} onChange={(l) => setAudience(audiences.find((a) => audienceLabel[a] === l) ?? "hoc-sinh")} />
-          <Chips legend="Band hiện tại" options={bands} value={band} onChange={setBand} />
-          <Chips legend="Mục tiêu" options={targets} value={target} onChange={setTarget} />
-          <Chips legend="Hạn thi" options={deadlines} value={deadline} onChange={setDeadline} />
+          <Chips legend="Band hiện tại" options={bands} value={band} onChange={(v) => { capture(); setBand(v); }} />
+          <Chips legend="Mục tiêu" options={targets} value={target} onChange={(v) => { capture(); setTarget(v); }} />
+          <Chips legend="Hạn thi" options={deadlines} value={deadline} onChange={(v) => { capture(); setDeadline(v); }} />
         </div>
 
         <div aria-live="polite" className="rounded-[var(--r-card)] bg-[var(--brand-soft)] p-6">
           {order ? (
             <>
               <p className="font-bold">Thứ tự kỹ năng nên ưu tiên</p>
-              <ol className="mt-4 grid gap-2">
+              <ol ref={listRef} className="mt-4 grid gap-2">
                 {order.map((s, i) => (
                   <li key={s} className="flex items-center gap-3 rounded-[var(--r-inner)] bg-white px-4 py-3 font-semibold">
                     <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--ink)] text-sm text-white">{i + 1}</span>
@@ -76,7 +93,7 @@ export function Estimator() {
             <p className="text-[var(--muted)]">Chọn band hiện tại, mục tiêu và hạn thi để xem thứ tự kỹ năng nên ưu tiên.</p>
           )}
         </div>
-      </div>
+      </Rise>
     </section>
   );
 }

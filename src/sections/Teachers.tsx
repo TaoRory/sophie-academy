@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Rise } from "@/components/motion/Rise";
 import { teachers } from "@/content/teachers";
 
 export function Teachers() {
@@ -18,9 +19,9 @@ export function Teachers() {
           </p>
         ) : (
           <div className="mt-10 grid gap-10 lg:grid-cols-[5fr_7fr]">
-            <div>
+            <Rise kind="wipe">
               <Image src={featured.photo} alt={featured.name} width={560} height={640} className="aspect-[7/8] w-full rounded-[var(--r-card)] object-cover" />
-            </div>
+            </Rise>
             <div className="flex flex-col justify-center">
               <p className="text-[var(--brand)]" style={{ fontFamily: "var(--font-display)", fontSize: "clamp(2.5rem, 2rem + 3vw, 4.5rem)", fontWeight: 900, lineHeight: 1 }}>
                 IELTS {featured.band}

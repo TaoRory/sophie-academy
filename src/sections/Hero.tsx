@@ -1,3 +1,7 @@
+import { Magnetic } from "@/components/motion/Magnetic";
+import { Rise } from "@/components/motion/Rise";
+import { SplitReveal } from "@/components/motion/SplitReveal";
+import { Tilt } from "@/components/motion/Tilt";
 import { Mascot } from "@/components/ui/Mascot";
 import { ZaloLink } from "@/components/ui/ZaloLink";
 import { site } from "@/content/site";
@@ -10,19 +14,21 @@ export function Hero() {
     <section id="hero" data-section="hero" className="wrap" style={{ paddingBlock: "clamp(24px, 4vw, 56px)" }}>
       <div className="grid items-center gap-12 lg:grid-cols-[7fr_5fr]">
         <div>
-          <h1 style={{ fontSize: "clamp(2.25rem, 1rem + 3.9vw, 4.25rem)" }}>
+          <SplitReveal as="h1" trigger="load" className="h1-hero">
             IELTS 1 kèm 1 online. Giáo viên 8.0 <span className="kit-mark">dạy riêng bạn.</span>
-          </h1>
+          </SplitReveal>
           <p className="mt-6 max-w-[34ch] text-[clamp(1.125rem,0.9rem+0.8vw,1.5rem)] font-semibold leading-snug">
             Lộ trình riêng, <span className="text-[var(--muted)]">kiểm tra mỗi tháng để chỉnh lại. Học ở đâu cũng được.</span>
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#dang-ky" className="btn btn-primary" data-hero-cta>
-              <span className="kit-roll">
-                <span>{site.cta.primary}</span>
-                <span aria-hidden="true">{site.cta.primary}</span>
-              </span>
-            </a>
+            <Magnetic>
+              <a href="#dang-ky" className="btn btn-primary" data-hero-cta>
+                <span className="kit-roll">
+                  <span>{site.cta.primary}</span>
+                  <span aria-hidden="true">{site.cta.primary}</span>
+                </span>
+              </a>
+            </Magnetic>
             <ZaloLink className="btn btn-line" />
           </div>
           <ul className="mt-8 flex flex-wrap gap-2" aria-label="Bốn kỹ năng">
@@ -35,8 +41,10 @@ export function Hero() {
         </div>
 
         <div className="relative lg:mt-28" data-hero-art>
-          <Mascot height={120} className="absolute bottom-[calc(100%-4px)] right-6 max-lg:hidden" />
-          <div className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-4 sm:p-5">
+          <Rise kind="pop" index={4} className="absolute bottom-[calc(100%-4px)] right-6 max-lg:hidden">
+            <Mascot height={120} />
+          </Rise>
+          <Tilt className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-4 sm:p-5">
             <p className="mb-3 text-sm font-semibold text-[var(--muted)]">Một buổi học 1-1 (minh họa)</p>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex aspect-[4/3] flex-col justify-end rounded-[var(--r-inner)] bg-[var(--ink)] p-3 text-white">
@@ -55,7 +63,7 @@ export function Hero() {
               </p>
               <p className="mt-2 text-sm text-[var(--muted)]">Giáo viên: chủ ngữ số nhiều thì động từ cũng số nhiều.</p>
             </div>
-          </div>
+          </Tilt>
         </div>
       </div>
     </section>

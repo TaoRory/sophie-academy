@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Rise } from "@/components/motion/Rise";
 import { results } from "@/content/results";
 import { audienceLabel } from "@/content/types";
 
@@ -20,7 +21,7 @@ export function Results() {
           </p>
         ) : (
           <>
-            <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+            <Rise className="mt-10 grid items-center gap-10 lg:grid-cols-2">
               <div>
                 <p className="font-semibold text-[var(--muted)]">
                   {story.name} · {audienceLabel[story.audience]} · {story.months} tháng
@@ -31,13 +32,13 @@ export function Results() {
                 {story.quote && <blockquote className="mt-6 max-w-[48ch] text-xl font-semibold leading-snug">&ldquo;{story.quote}&rdquo;</blockquote>}
               </div>
               {story.scoreImage && <Image src={story.scoreImage} alt={`Bảng điểm IELTS của ${story.name}`} width={720} height={520} className="w-full rounded-[var(--r-card)] border border-[var(--line)] bg-white" />}
-            </div>
+            </Rise>
             {grid.length > 0 && (
               <ul className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-                {grid.map((r) => (
-                  <li key={r.name + r.after}>
+                {grid.map((r, i) => (
+                  <Rise as="li" index={i % 4} key={r.name + r.after}>
                     <Image src={r.scoreImage!} alt={`Bảng điểm IELTS của ${r.name}: ${r.before} lên ${r.after}`} width={360} height={260} className="w-full rounded-[var(--r-card)] border border-[var(--line)] bg-white" />
-                  </li>
+                  </Rise>
                 ))}
               </ul>
             )}

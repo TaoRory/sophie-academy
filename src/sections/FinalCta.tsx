@@ -1,3 +1,4 @@
+import { Rise } from "@/components/motion/Rise";
 import { LeadForm } from "@/components/LeadForm";
 import { ZaloLink } from "@/components/ui/ZaloLink";
 import { site } from "@/content/site";
@@ -9,10 +10,10 @@ export function FinalCta() {
         {site.cta.primary}. <span className="text-[var(--muted)]">Sophie sẽ liên hệ bạn.</span>
       </h2>
       <div className="mt-10 grid gap-6 lg:grid-cols-[7fr_5fr]">
-        <div className="sheet bg-[var(--brand)] p-6 text-[var(--ink)] sm:p-10">
+        <Rise kind="pop" className="sheet bg-[var(--brand)] p-6 text-[var(--ink)] sm:p-10">
           <LeadForm />
-        </div>
-        <div className="sheet flex flex-col justify-between gap-8 border border-[var(--line)] p-6 sm:p-10">
+        </Rise>
+        <Rise kind="pop" index={1} className="sheet flex flex-col justify-between gap-8 border border-[var(--line)] p-6 sm:p-10">
           <div>
             <h3 className="text-3xl">Muốn hỏi nhanh?</h3>
             <p className="mt-3 text-[var(--muted)]">Nhắn Sophie qua Zalo, bạn sẽ được trả lời trực tiếp.</p>
@@ -25,7 +26,7 @@ export function FinalCta() {
             </p>
           )}
           {site.hotline && <p className="font-bold">Hotline: {site.hotline}</p>}
-        </div>
+        </Rise>
       </div>
     </section>
   );

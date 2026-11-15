@@ -9,12 +9,13 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flip } from "gsap/Flip";
 import { SplitText } from "gsap/SplitText";
 import type Lenis from "lenis";
 
-gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
+gsap.registerPlugin(ScrollTrigger, SplitText, Flip, useGSAP);
 
-export { gsap, ScrollTrigger, SplitText, useGSAP };
+export { Flip, gsap, ScrollTrigger, SplitText, useGSAP };
 
 /** Media query dùng với gsap.matchMedia() và window.matchMedia() */
 export const MQ = {

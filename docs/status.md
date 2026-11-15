@@ -2,7 +2,7 @@
 
 > File sống. Agent đọc đầu mỗi phiên, cập nhật sau mỗi đơn vị việc. Ngắn gọn: một dòng mỗi mục.
 
-## Phase hiện tại: P0, P1, P2 xong (chờ dữ liệu thật của Sophie); kế tiếp P3 (Motion T0–T1)
+## Phase hiện tại: P0–P4 xong (chờ dữ liệu thật của Sophie); kế tiếp P5 (nội dung thật + SEO + Apps Script + QA)
 
 | Phase | Trạng thái | Ghi chú |
 |---|---|---|
@@ -10,14 +10,17 @@
 | P0 Nền | **Xong 15/11/2026** | build sạch, lint/tsc sạch, site-qa 20/20 trên `/` và `/chinh-sach-bao-mat`; header, footer, FloatingCta, 404, chính sách (bản nháp) |
 | P1 Nội dung tĩnh | **Xong 15/11/2026** | 12 phần + trang phụ dựng xong; Teachers/Results/Feedback/ResultStrip hiện khung chờ vì `src/content` trống |
 | P2 Form + Sheet | **Code xong, chưa nối Sheet thật** | `/api/lead` → webhook; đã thử end-to-end với webhook giả (nhận đủ payload + UTM, chuyển `/cam-on`); thiếu env thì báo lỗi thật. Còn: viết Apps Script + `LEAD_WEBHOOK_URL/SECRET` |
-| P3 Motion T0–T1 | Chưa | |
-| P4 T2 + T3 | Chưa | |
+| P3 Motion T0–T1 | **Xong 15/11/2026** | SplitReveal H1, Magnetic CTA hero, Tilt khung mô hình, Rise (pop/wipe/up) ở so sánh, ước lượng, giáo viên, kết quả, feedback, form; mèo hero pop; `.kit-mark` tự quét |
+| P4 T2 + T3 | **Xong 15/11/2026** | Cảnh ghim `lo-trinh` (đường S vẽ dần, 5 mốc, hình đổi theo mốc; điện thoại/giảm chuyển động/không JS dùng bản tĩnh); Estimator dùng GSAP Flip; băng kết quả có nút dừng (chưa test vì chưa có dữ liệu) |
 | P5 Nội dung thật + QA | Chưa | |
 | P6 Bàn giao | Chưa | |
 
-## P3: việc kế tiếp
-Motion T0–T1 theo bảng phân cảnh trong `docs/master-plan.md` mục 5: `SplitReveal` cho H1 hero, `Rise` cho các khối, `.kit-roll` đã có ở nút, `Magnetic` cho CTA hero, gạch chân/đường đuôi mèo `.kit-draw`, Tilt khung mô hình. Sau đó P4: cảnh ghim `lo-trinh` (`usePinProgress`), `VelocityMarquee` có nút dừng, Flip cho Estimator.
-Đã có sẵn: `src/components/motion/*`, `MotionProvider`, `motion.css`. Chưa dùng recipe nào trong section (mọi phần đang tĩnh).
+## P5: việc kế tiếp
+1. Apps Script mẫu nhận lead + hướng dẫn dán (`docs/lead-apps-script.md`), đặt `LEAD_WEBHOOK_URL/SECRET` trên Vercel.
+2. SEO: JSON-LD `EducationalOrganization` + `Course` (FAQPage đã có), `sitemap.ts`, `robots.ts`, ảnh OG dựng từ ảnh bìa, `favicon` mèo.
+3. Thay khung chờ bằng dữ liệu thật khi Sophie gửi (`src/content/{teachers,results,testimonials,estimatorRules,site}.ts`), thêm Drawer chi tiết giáo viên và dialog phóng ảnh bảng điểm.
+4. Đo lường GA4/Meta Pixel (`lead_submit`, `zalo_click`, `estimator_use`) khi có ID.
+5. QA cuối: Lighthouse mobile, thử điện thoại thật, đổi kích thước giữa cảnh ghim, thử băng kết quả khi đã có ≥ 6 kết quả.
 
 ## Đang chờ Sophie
 | # | Thứ cần | Chặn phần | Trạng thái |
@@ -47,3 +50,6 @@ Motion T0–T1 theo bảng phân cảnh trong `docs/master-plan.md` mục 5: `Sp
 - Hero H1 dùng cỡ riêng (`4.25rem` tối đa) để nút CTA nằm trong màn đầu ở 1280×720 / 1366×768 / 375×667 (đã đo).
 - Ô so sánh không nói xấu gia sư/lớp khác ("Tùy người", không "Thường không có").
 - Chip ước lượng dùng thứ tự kỹ năng tham khảo (`estimatorRules.priorityFor`) do mình đặt: Sophie cần duyệt.
+- Cảnh ghim: mỗi mốc cao cố định 84px (đường S và chấm mốc căn theo `ROW` trong `RoadmapScene.tsx`); nếu đổi cỡ chữ mô tả phải kiểm lại không tràn hàng. Bản tĩnh và cảnh dùng chung nội dung `roadmapSteps`, CSS `.kit-pin[data-live]` quyết định cái nào hiện.
+- Chưa làm: mèo nháy mắt (mascot là ảnh SVG, không animate được phần mắt), gạch chân cong dưới từ khóa (đã có `.kit-mark` quét khối màu thay thế, đúng "chữ ký" của playbook), `Parallax`/`StackCards`/`HorizontalScroll` (không nằm trong ngân sách 2 cảnh T2).
+- site-qa có 3 khung > 50ms khi cuộn qua cảnh ghim (p95 vẫn 16.7ms); theo dõi lại trên máy thật ở P5.

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Rise } from "@/components/motion/Rise";
 import { testimonials } from "@/content/testimonials";
 
 export function Feedback() {
@@ -14,8 +15,8 @@ export function Feedback() {
         </p>
       ) : (
         <ul className="mt-10 gap-4 [column-gap:1rem] sm:columns-2 lg:columns-3">
-          {items.map((t) => (
-            <li key={t.name + (t.quote ?? t.screenshot)} className="mb-4 break-inside-avoid">
+          {items.map((t, i) => (
+            <Rise as="li" kind="pop" index={i % 3} key={t.name + (t.quote ?? t.screenshot)} className="mb-4 break-inside-avoid">
               {t.screenshot ? (
                 <Image src={t.screenshot} alt={`Tin nhắn của ${t.name} (${t.role})`} width={480} height={640} className="w-full rounded-[var(--r-card)] border border-[var(--line)]" />
               ) : (
@@ -26,7 +27,7 @@ export function Feedback() {
                   </figcaption>
                 </figure>
               )}
-            </li>
+            </Rise>
           ))}
         </ul>
       )}
