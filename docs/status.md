@@ -62,3 +62,5 @@
 - Cần Sophie duyệt: nội dung `/chuong-trinh/4-ky-nang` (`content/programs.ts` skillPages, mô tả chung do mình viết); tình huống từng nhóm ở `content/painPoints.ts`.
 - Next 16 + cacheComponents: không dùng `export const dynamicParams` (build lỗi). Không truyền hàm (vd `Link`) từ Server Component xuống prop `as` của client component (`Rise`): đặt `Link` bên trong.
 - `h2` mặc định (tokens.css, không layer) thắng utility `text-xl`: muốn h2 nhỏ phải dùng style inline.
+- 15/11/2026 (góp ý lần 6): icon tab = mèo logo (thay chữ N mặc định của Next); mèo ở hero và /cam-on vẫy đuôi tại chỗ (`MascotAlive`). Cách làm + bài học: mèo và chữ S là MỘT path; cắt bằng clipPath thành thân + đuôi, chỉ đuôi quay (pivot 306,549). Đường cắt phía trên phải nằm trong khoảng TRẮNG giữa lưng mèo và chữ S, nếu cắt vào thân sẽ lòi vệt cam khi đuôi quay; mảnh lấn che mối nối chỉ đặt sâu trong thân (x 298-309, y 512-543). Còn vài chấm li ti ở chân đuôi chỉ thấy khi phóng 3 lần.
+- Trình duyệt cache favicon rất lâu: đổi icon xong cần Ctrl+F5 hoặc mở tab mới để thấy.

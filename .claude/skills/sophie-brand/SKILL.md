@@ -48,6 +48,7 @@ Bố cục theo DOL English (owner yêu cầu 15/11/2026): tiêu đề căn gi�
 **Không dùng khối màu tô sau chữ (`.kit-mark`)** (owner chê "trông AI"). Mèo **không chuyển động**.
 
 ## Mascot
+- `MascotAlive` (`src/components/cat/`): mèo gốc ngồi yên nhưng vẫy đuôi + chớp mắt (hero, /cam-on). **Không đổi hình**: cùng một path logo, chia 2 lớp bằng clipPath, chỉ đuôi chữ S quay quanh gốc đuôi; rê chuột vẫy mạnh hơn. `Mascot` (ảnh tĩnh) dùng ở thẻ menu.
 - `Mascot` (mèo + chữ S tách từ logo): ngồi yên trên thẻ nghiêng ở hero và ở `/cam-on`. Đã thử mèo đi/nhảy theo cuộn, owner bỏ.
 - Logo header nội tuyến (`LogoInline`, nhóm `[data-logo-cat]`) nhún khi rê chuột.
 
@@ -66,3 +67,6 @@ Bố cục theo DOL English (owner yêu cầu 15/11/2026): tiêu đề căn gi�
 - Lời chào hàng: "IELTS 1 kèm 1 online: giáo viên 8.0 dạy riêng bạn, theo lộ trình được đo lại mỗi tháng."
 - Lời mời duy nhất: **"Nhận lộ trình riêng"**; nút phụ: **"Chat Zalo"**.
 - Tránh: "giải pháp toàn diện", "đột phá", "cam kết 100%", emoji thay icon, eyebrow trên mọi tiêu đề.
+
+## Icon tab trình duyệt
+`src/app/icon.svg` + `icon.png` + `favicon.ico` + `apple-icon.png`: mèo cam trên nền navy bo góc (sinh từ path logo). Thay icon mặc định của Next.js.

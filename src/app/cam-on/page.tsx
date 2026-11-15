@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Mascot } from "@/components/ui/Mascot";
+import { MascotAlive } from "@/components/cat/MascotAlive";
 import { ZaloLink } from "@/components/ui/ZaloLink";
 
 export const metadata: Metadata = { title: "Cảm ơn bạn | Sophie IELTS", robots: { index: false } };
@@ -11,7 +11,7 @@ export default function ThanksPage() {
   return (
     <>
       <main className="section wrap">
-        <Mascot height={140} />
+        <MascotAlive height={140} />
         <h1 className="mt-6 max-w-[16ch]">Sophie đã nhận thông tin của bạn.</h1>
         <ol className="mt-8 grid max-w-[52ch] gap-3">
           {steps.map((s, i) => (

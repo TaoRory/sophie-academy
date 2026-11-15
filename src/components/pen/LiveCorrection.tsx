@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Mascot } from "@/components/ui/Mascot";
+import { MascotAlive } from "@/components/cat/MascotAlive";
 import { gsap, MQ, useGSAP } from "@/lib/motion";
 import { PenMark } from "./PenMark";
 
@@ -65,7 +65,7 @@ export function LiveCorrection({ className }: { className?: string }) {
 
   return (
     <div ref={ref} className={`relative ${className ?? ""}`}>
-      <Mascot height={96} className="absolute bottom-[calc(100%-4px)] right-5" />
+      <MascotAlive height={96} className="absolute bottom-[calc(100%-4px)] right-5" />
       <div role="img" aria-label="Minh họa: giáo viên sửa bài Writing trực tiếp trong buổi học" className="paper-margin relative rounded-[var(--r-card)] border border-[var(--line)] bg-white pb-4 pl-[56px] pr-5 pt-4 text-left" style={{ ["--paper-margin" as string]: "40px", ["--rule-gap" as string]: "40px" }}>
         <div aria-hidden="true">
           <p className="flex h-10 items-center text-xs font-bold uppercase tracking-wide text-[var(--muted)]">Writing Task 2 · Minh họa</p>
