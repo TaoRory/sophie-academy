@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Sophie
+qa-output/
+.vercel
+# file gốc nặng từ Drive: giữ trên máy/Drive, không đưa lên repo công khai
+assets/brand-source/
