@@ -16,7 +16,6 @@
   --section-y: clamp(72px, 10vw, 144px);
   --gutter: clamp(20px, 4vw, 40px);
   --kit-header: 4rem;
-  --kit-mark: var(--brand);
 }
 
 html {
@@ -183,4 +182,118 @@ h2 {
   from {
     transform: translateY(16px);
   }
+}
+
+/* ---------- Mèo Sophie (CatCompanion + mèo tĩnh ở hero) ---------- */
+.cat-companion {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  visibility: hidden;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cat-companion svg {
+  display: block;
+  width: auto;
+  height: 110px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.cat-companion[data-mode="mobile"] svg {
+  height: 72px;
+}
+
+.cat-flip {
+  transform-origin: 50% 100%;
+}
+
+.hero-cat-static {
+  position: absolute;
+  right: 24px;
+  bottom: calc(100% - 6px);
+  line-height: 0;
+}
+
+.hero-cat-static svg {
+  width: auto;
+  height: 110px;
+}
+
+@media (max-width: 63.99rem) {
+  .hero-cat-static svg {
+    height: 72px;
+  }
+}
+
+/* Companion đang chạy thì nó thay mèo tĩnh (JS lỗi hoặc giảm chuyển động: mèo tĩnh vẫn còn) */
+html[data-cat="on"] .hero-cat-static {
+  visibility: hidden;
+}
+
+/* ---------- Header sinh động ---------- */
+.site-header {
+  transition: transform 0.35s var(--kit-ease-in-out), border-color 0.2s ease-out;
+}
+
+.site-header[data-hidden] {
+  transform: translateY(-100%);
+}
+
+.site-header .logo-link svg {
+  transform-origin: 0 50%;
+  transition: transform 0.3s var(--kit-ease-out);
+}
+
+.site-header[data-compact] .logo-link svg {
+  transform: scale(0.86);
+}
+
+.nav-pill {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 50% 0 50% round 999px);
+  border-radius: 999px;
+  background: var(--brand-soft);
+  pointer-events: none;
+}
+
+.header-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: var(--brand);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+[data-logo-cat] {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nav-pill {
+    transition: clip-path 0.35s var(--kit-ease-in-out), opacity 0.2s ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .logo-link:hover [data-logo-cat] {
+      animation: logo-cat-hop 0.7s var(--kit-ease-out);
+    }
+  }
+}
+
+@keyframes logo-cat-hop {
+  0% { transform: none; }
+  18% { transform: scale(1.04, 0.9); }
+  45% { transform: translateY(-14%) rotate(-6deg) scale(0.97, 1.05); }
+  70% { transform: translateY(0) scale(1.05, 0.93); }
+  100% { transform: none; }
 }

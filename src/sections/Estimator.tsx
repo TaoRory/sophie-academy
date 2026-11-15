@@ -63,7 +63,7 @@ export function Estimator() {
       <h2 className="max-w-[20ch]">
         Thử ước lượng <span className="text-[var(--muted)]">lộ trình của bạn.</span>
       </h2>
-      <Rise kind="pop" className="mt-10 grid gap-10 rounded-[var(--r-sheet)] border border-[var(--line)] p-6 sm:p-10 lg:grid-cols-[1fr_1fr]">
+      <Rise kind="pop" data-cat-perch="left" className="mt-10 grid gap-10 rounded-[var(--r-sheet)] border border-[var(--line)] p-6 sm:p-10 lg:grid-cols-[1fr_1fr]">
         <div className="grid gap-7">
           <Chips legend="Bạn là" options={audiences.map((a) => audienceLabel[a])} value={audienceLabel[audience]} onChange={(l) => setAudience(audiences.find((a) => audienceLabel[a] === l) ?? "hoc-sinh")} />
           <Chips legend="Band hiện tại" options={bands} value={band} onChange={(v) => { capture(); setBand(v); }} />

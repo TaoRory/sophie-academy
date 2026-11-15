@@ -21,7 +21,8 @@ export { Flip, gsap, ScrollTrigger, SplitText, useGSAP };
 export const MQ = {
   /** Pin / scrub dài: chỉ màn rộng, đủ cao, không giảm chuyển động */
   desktopMotion: "(min-width: 64rem) and (min-height: 40rem) and (prefers-reduced-motion: no-preference)",
-  mobileMotion: "not ((min-width: 64rem) and (min-height: 40rem)) and (prefers-reduced-motion: no-preference)",
+  // Bọc `not (...)` trong ngoặc: dạng `not (A) and (B)` không hợp lệ, trình duyệt đọc thành "not all" (không bao giờ khớp)
+  mobileMotion: "(not ((min-width: 64rem) and (min-height: 40rem))) and (prefers-reduced-motion: no-preference)",
   anyMotion: "(prefers-reduced-motion: no-preference)",
   reduced: "(prefers-reduced-motion: reduce)",
   /** Thiết bị có chuột: cursor, magnetic, tilt, hover */

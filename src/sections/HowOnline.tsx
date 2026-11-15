@@ -30,7 +30,7 @@ export function HowOnline() {
             </li>
           ))}
         </ul>
-        <div id="ho-panel" role="tabpanel" aria-labelledby={`ho-tab-${i}`} className="rounded-[var(--r-sheet)] bg-[var(--paper)] p-8 sm:p-12">
+        <div id="ho-panel" data-cat-perch="right" role="tabpanel" aria-labelledby={`ho-tab-${i}`} className="rounded-[var(--r-sheet)] bg-[var(--paper)] p-8 sm:p-12">
           <p className="text-sm font-bold uppercase tracking-wide text-[var(--muted)]">Nội quy học viên</p>
           <p className="mt-4 max-w-[40ch] text-[clamp(1.25rem,1rem+1vw,1.75rem)] font-semibold leading-snug">{howOnline[i].body}</p>
         </div>

@@ -8,7 +8,7 @@ export function Teachers() {
 
   return (
     <section id="giao-vien" data-section="giao-vien" className="px-[var(--gutter)]" style={{ paddingBlock: "calc(var(--section-y) / 2)" }}>
-      <div className="on-ink sheet mx-auto bg-[var(--ink)] text-white" style={{ maxWidth: 1240, padding: "clamp(28px, 5vw, 72px)" }}>
+      <div data-cat-perch="right" className="on-ink sheet mx-auto bg-[var(--ink)] text-white" style={{ maxWidth: 1240, padding: "clamp(28px, 5vw, 72px)" }}>
         <h2 className="max-w-[18ch]">
           Ai sẽ dạy bạn? <span className="text-white">Đội ngũ giáo viên IELTS 8.0.</span>
         </h2>

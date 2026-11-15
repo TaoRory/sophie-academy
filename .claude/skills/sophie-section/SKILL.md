@@ -25,6 +25,7 @@ description: Spec dựng từng phần của landing Sophie IELTS (header, hero,
 | `footer` → `Footer.tsx` | `sections/13-footer.md` | — | Tấm navy |
 | nổi → `FloatingCta.tsx` | `sections/14-noi.md` | T0 | Zalo + thanh đáy mobile |
 | `/cam-on`, `/chinh-sach-bao-mat`, 404 | `sections/15-trang-phu.md` | T0 | — |
+| mèo đi theo trang → `components/cat/` | `sections/16-meo.md` | T4 (chữ ký) | Lớp fixed, đậu trên `data-cat-perch` |
 
 Thứ tự trên trang: đúng thứ tự bảng. Hai phần liền nhau không dùng chung khuôn.
 

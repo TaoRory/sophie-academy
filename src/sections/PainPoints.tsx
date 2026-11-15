@@ -45,7 +45,7 @@ export function PainPoints() {
           ))}
         </div>
 
-        <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-${audience}`} className="mt-8 border-t border-[var(--line)]">
+        <div id={`${id}-panel`} role="tabpanel" data-cat-perch="left" aria-labelledby={`${id}-tab-${audience}`} className="mt-8 border-t border-[var(--line)]">
           {painPoints[audience].map((row) => (
             <div key={row.pain} className="grid gap-2 border-b border-[var(--line)] py-6 md:grid-cols-2 md:gap-12">
               <p className="text-[1.1875rem] font-semibold leading-snug">{row.pain}</p>

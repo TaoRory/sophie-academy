@@ -53,3 +53,6 @@
 - Cảnh ghim: mỗi mốc cao cố định 84px (đường S và chấm mốc căn theo `ROW` trong `RoadmapScene.tsx`); nếu đổi cỡ chữ mô tả phải kiểm lại không tràn hàng. Bản tĩnh và cảnh dùng chung nội dung `roadmapSteps`, CSS `.kit-pin[data-live]` quyết định cái nào hiện.
 - Chưa làm: mèo nháy mắt (mascot là ảnh SVG, không animate được phần mắt), gạch chân cong dưới từ khóa (đã có `.kit-mark` quét khối màu thay thế, đúng "chữ ký" của playbook), `Parallax`/`StackCards`/`HorizontalScroll` (không nằm trong ngân sách 2 cảnh T2).
 - site-qa có 3 khung > 50ms khi cuộn qua cảnh ghim (p95 vẫn 16.7ms); theo dõi lại trên máy thật ở P5.
+- 15/11/2026 (góp ý owner sau khi xem localhost): bỏ khối tô chữ `.kit-mark`; thêm mèo `CatRig` + `CatCompanion` (đậu và nhảy giữa các phần, vẫy chào "Hello!" khi rê/chạm, điện thoại ngồi trên thanh CTA đáy); header sinh động (logo mèo nhún, viên chỉ mục trượt, thanh tiến độ, ẩn khi cuộn xuống). site-qa 30/30, p95 16.8ms.
+- `MQ.mobileMotion` của kit sai cú pháp (`not (A) and (B)` bị đọc thành `not all`, không bao giờ khớp). Đã sửa trong `src/lib/motion.ts` bằng cách bọc `(not (...))`. Nên báo lại cho người giữ aegis-web-kit.
+- Mèo `CatRig` là hình tôi tự vẽ theo ảnh bìa: khi Sophie có file thiết kế mèo vẫy tay tách lớp, thay hình, giữ tên `data-part` và khớp.

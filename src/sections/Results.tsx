@@ -16,12 +16,12 @@ export function Results() {
         </h2>
 
         {!story ? (
-          <p data-todo="sophie" className="mt-10 max-w-[52ch] rounded-[var(--r-card)] border-2 border-dashed border-[var(--line)] p-6 text-[var(--muted)]">
+          <p data-todo="sophie" data-cat-perch="left" className="mt-10 max-w-[52ch] rounded-[var(--r-card)] border-2 border-dashed border-[var(--line)] p-6 text-[var(--muted)]">
             Bảng điểm và câu chuyện học viên đang được cập nhật.
           </p>
         ) : (
           <>
-            <Rise className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+            <Rise data-cat-perch="left" className="mt-10 grid items-center gap-10 lg:grid-cols-2">
               <div>
                 <p className="font-semibold text-[var(--muted)]">
                   {story.name} · {audienceLabel[story.audience]} · {story.months} tháng

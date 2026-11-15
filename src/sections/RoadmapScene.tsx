@@ -62,8 +62,10 @@ export function RoadmapScene({ children }: { children: React.ReactNode }) {
                 ))}
               </ol>
             </div>
-            <div key={step} className="roadmap-visual" aria-live="polite">
-              <Visual />
+            <div data-cat-perch="right">
+              <div key={step} className="roadmap-visual" aria-live="polite">
+                <Visual />
+              </div>
             </div>
           </div>
         </div>

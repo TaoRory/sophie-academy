@@ -12,7 +12,7 @@ export function Faq() {
     <section id="hoi-dap" data-section="hoi-dap" className="section bg-[var(--paper)]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <div className="wrap grid gap-10 lg:grid-cols-[4fr_8fr]">
-        <div className="lg:sticky lg:top-24 lg:self-start">
+        <div data-cat-perch="left" className="lg:sticky lg:top-24 lg:self-start">
           <h2>Hỏi đáp.</h2>
           <p className="mt-4 text-[var(--muted)]">Chưa thấy câu bạn cần? Hỏi Sophie trực tiếp.</p>
           {site.zaloUrl ? <ZaloLink className="btn btn-line mt-6" /> : <a href="#dang-ky" className="btn btn-line mt-6">{site.cta.primary}</a>}

@@ -1,6 +1,7 @@
 import { FloatingCta } from "@/components/FloatingCta";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { CatCompanion } from "@/components/cat/CatCompanion";
 import { LeadProvider } from "@/components/LeadContext";
 import { Comparison } from "@/sections/Comparison";
 import { Estimator } from "@/sections/Estimator";
@@ -35,6 +36,7 @@ export default function Home() {
       </main>
       <Footer />
       <FloatingCta />
+      <CatCompanion />
     </LeadProvider>
   );
 }

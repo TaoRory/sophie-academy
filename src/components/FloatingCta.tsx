@@ -46,6 +46,7 @@ export function FloatingCta() {
       <div
         aria-hidden={!show}
         inert={!show}
+        data-cat-perch-mobile="right"
         className="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-[var(--line)] bg-white px-3 pt-2 transition-transform duration-300 lg:hidden"
         style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))", transform: show ? "none" : "translateY(110%)" }}
       >

@@ -2,23 +2,104 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/ui/Logo";
+import { LogoInline } from "@/components/ui/LogoInline";
 import { nav, site } from "@/content/site";
-import { scrollToTarget } from "@/lib/motion";
+import { MQ, ScrollTrigger, scrollToTarget, useGSAP } from "@/lib/motion";
 
+/**
+ * Header dính (spec: sections/00-header.md):
+ * - logo nội tuyến, mèo trong logo nhún khi rê chuột (CSS);
+ * - viên chỉ mục trượt tới mục đang xem / đang rê (clip-path, CSS transition);
+ * - thanh tiến độ cuộn ở mép dưới (scaleX);
+ * - ẩn khi cuộn xuống, hiện khi cuộn lên (không ẩn khi: gần đầu trang, menu mở, focus trong header, đang ở cảnh ghim Lộ trình, giảm chuyển động).
+ */
 export function Header() {
   const [compact, setCompact] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const [hover, setHover] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const barRef = useRef<HTMLSpanElement>(null);
+  const pillRef = useRef<HTMLSpanElement>(null);
   const menuBtn = useRef<HTMLButtonElement>(null);
   const drawer = useRef<HTMLDivElement>(null);
+  const suppressHideUntil = useRef(0);
 
+  // Ẩn/hiện theo hướng cuộn + thu gọn
   useEffect(() => {
-    const onScroll = () => setCompact(window.scrollY > 80);
+    let lastY = window.scrollY;
+    const motionOk = window.matchMedia(MQ.anyMotion).matches;
+    const pinActive = () => {
+      const pin = document.querySelector<HTMLElement>('#lo-trinh[data-live="true"]');
+      if (!pin) return false;
+      const r = pin.getBoundingClientRect();
+      return r.top <= 80 && r.bottom >= window.innerHeight - 10;
+    };
+    const onScroll = () => {
+      const y = window.scrollY;
+      const dy = y - lastY;
+      setCompact(y > 80);
+      if (!motionOk || y < 400 || pinActive() || headerRef.current?.contains(document.activeElement)) setHidden(false);
+      else if (dy > 8 && performance.now() > suppressHideUntil.current) setHidden(true);
+      else if (dy < -8) setHidden(false);
+      if (Math.abs(dy) > 8) lastY = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Menu mở: khóa cuộn nền, Esc đóng, giữ focus trong ngăn kéo.
+  // Thanh tiến độ cuộn
+  useGSAP(() => {
+    const st = ScrollTrigger.create({
+      start: 0,
+      end: "max",
+      onUpdate: (self) => {
+        if (barRef.current) barRef.current.style.transform = `scaleX(${self.progress.toFixed(4)})`;
+      },
+    });
+    return () => st.kill();
+  });
+
+  // Mục đang xem
+  useEffect(() => {
+    const ids = nav.map((n) => n.href.slice(1));
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const visible = new Set<string>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) visible.add(e.target.id);
+          else visible.delete(e.target.id);
+        }
+        setActive(ids.find((id) => visible.has(id)) ?? null);
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  // Viên chỉ mục: lộ đúng mục bằng clip-path (ghi thẳng vào DOM, CSS lo phần chuyển động)
+  const target = hover ?? (active ? `#${active}` : null);
+  useEffect(() => {
+    const navEl = navRef.current;
+    const pillEl = pillRef.current;
+    if (!navEl || !pillEl) return;
+    const link = target ? navEl.querySelector<HTMLElement>(`a[href="${target}"]`) : null;
+    if (!link) {
+      pillEl.style.opacity = "0";
+      return;
+    }
+    const L = link.offsetLeft;
+    const R = navEl.clientWidth - (link.offsetLeft + link.offsetWidth);
+    pillEl.style.clipPath = `inset(0px ${R}px 0px ${L}px round 999px)`;
+    pillEl.style.opacity = "1";
+  }, [target]);
+
+  // Menu điện thoại: khóa cuộn nền, Esc đóng, giữ focus trong ngăn kéo
   useEffect(() => {
     if (!open) return;
     const btn = menuBtn.current;
@@ -51,27 +132,41 @@ export function Header() {
 
   const go = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     const el = document.querySelector<HTMLElement>(href);
-    if (!el) return; // phần chưa dựng: để trình duyệt xử lý
+    if (!el) return;
     e.preventDefault();
     setOpen(false);
-    // chờ ngăn kéo trả lại overflow rồi mới cuộn
+    setHidden(false);
+    suppressHideUntil.current = e.timeStamp + 1500;
     requestAnimationFrame(() => scrollToTarget(el, { offset: -64 }));
   };
 
   return (
     <header
+      ref={headerRef}
       data-section="header"
       data-compact={compact || undefined}
-      className="sticky top-0 z-50 border-b border-transparent bg-white transition-[border-color,box-shadow] duration-200 data-[compact]:border-[var(--line)]"
+      data-hidden={hidden || undefined}
+      onFocus={() => setHidden(false)}
+      className="site-header sticky top-0 z-50 border-b border-transparent bg-white data-[compact]:border-[var(--line)]"
     >
-      <div className="wrap flex items-center justify-between gap-4" style={{ height: compact ? "3.5rem" : "4rem", transition: "height .2s ease-out" }}>
-        <a href="#" aria-label={`${site.name}, về đầu trang`} className="flex shrink-0 items-center">
-          <Logo height={compact ? 34 : 40} priority />
+      <div className="wrap flex h-16 items-center justify-between gap-4">
+        <a href="#" aria-label={`${site.name}, về đầu trang`} className="logo-link flex shrink-0 items-center">
+          <LogoInline height={40} />
         </a>
 
-        <nav aria-label="Chính" className="hidden items-center gap-7 lg:flex">
+        <nav ref={navRef} aria-label="Chính" className="relative hidden items-center lg:flex" onMouseLeave={() => setHover(null)}>
+          <span ref={pillRef} aria-hidden="true" className="nav-pill" style={{ opacity: 0 }} />
           {nav.map((n) => (
-            <a key={n.href} href={n.href} onClick={(e) => go(e, n.href)} className="font-semibold text-[var(--ink)] hover:underline underline-offset-4 decoration-2 decoration-[var(--brand)]">
+            <a
+              key={n.href}
+              href={n.href}
+              onClick={(e) => go(e, n.href)}
+              onMouseEnter={() => setHover(n.href)}
+              onFocus={() => setHover(n.href)}
+              onBlur={() => setHover(null)}
+              aria-current={active === n.href.slice(1) ? "true" : undefined}
+              className="relative z-10 rounded-full px-3.5 py-2 font-semibold text-[var(--ink)]"
+            >
               {n.label}
             </a>
           ))}
@@ -94,12 +189,17 @@ export function Header() {
             style={{ minHeight: 44, padding: "0 1rem" }}
             aria-expanded={open}
             aria-controls="menu-drawer"
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              setHidden(false);
+              setOpen(true);
+            }}
           >
             Menu
           </button>
         </div>
       </div>
+
+      <span ref={barRef} aria-hidden="true" className="header-progress" />
 
       {open && (
         <div id="menu-drawer" ref={drawer} role="dialog" aria-modal="true" aria-label="Menu" className="on-ink fixed inset-0 z-50 flex flex-col bg-[var(--ink)] px-[var(--gutter)] pb-8 pt-4 text-white lg:hidden">

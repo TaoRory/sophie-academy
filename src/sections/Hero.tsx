@@ -1,8 +1,7 @@
 import { Magnetic } from "@/components/motion/Magnetic";
-import { Rise } from "@/components/motion/Rise";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 import { Tilt } from "@/components/motion/Tilt";
-import { Mascot } from "@/components/ui/Mascot";
+import { CatRig } from "@/components/cat/CatRig";
 import { ZaloLink } from "@/components/ui/ZaloLink";
 import { site } from "@/content/site";
 import { skillLabel } from "@/content/types";
@@ -15,7 +14,7 @@ export function Hero() {
       <div className="grid items-center gap-12 lg:grid-cols-[7fr_5fr]">
         <div>
           <SplitReveal as="h1" trigger="load" className="h1-hero">
-            IELTS 1 kèm 1 online. Giáo viên 8.0 <span className="kit-mark">dạy riêng bạn.</span>
+            IELTS 1 kèm 1 online. Giáo viên 8.0 <span className="text-[var(--brand-ink)]">dạy riêng bạn.</span>
           </SplitReveal>
           <p className="mt-6 max-w-[34ch] text-[clamp(1.125rem,0.9rem+0.8vw,1.5rem)] font-semibold leading-snug">
             Lộ trình riêng, <span className="text-[var(--muted)]">kiểm tra mỗi tháng để chỉnh lại. Học ở đâu cũng được.</span>
@@ -40,10 +39,11 @@ export function Hero() {
           </ul>
         </div>
 
-        <div className="relative lg:mt-28" data-hero-art>
-          <Rise kind="pop" index={4} className="absolute bottom-[calc(100%-4px)] right-6 max-lg:hidden">
-            <Mascot height={120} />
-          </Rise>
+        <div className="relative mt-6 lg:mt-28" data-hero-art>
+          <div className="hero-cat-static" aria-hidden="true">
+            <CatRig size={110} />
+          </div>
+          <div data-cat-perch="right">
           <Tilt className="rounded-[var(--r-card)] border border-[var(--line)] bg-white p-4 sm:p-5">
             <p className="mb-3 text-sm font-semibold text-[var(--muted)]">Một buổi học 1-1 (minh họa)</p>
             <div className="grid grid-cols-2 gap-3">
@@ -64,6 +64,7 @@ export function Hero() {
               <p className="mt-2 text-sm text-[var(--muted)]">Giáo viên: chủ ngữ số nhiều thì động từ cũng số nhiều.</p>
             </div>
           </Tilt>
+          </div>
         </div>
       </div>
     </section>

@@ -41,11 +41,14 @@ Mọi dữ kiện dưới đây đã được chép từ Drive của brand. **Kh
 | `logo-mono.svg` | Bất kỳ, màu theo `currentColor` |
 Chép sang `public/brand/` khi dựng; header dùng SVG nội tuyến để đổi màu khi cuộn nếu cần.
 
-## Chữ ký thị giác: đường đuôi mèo hình chữ S
-Đuôi mèo nối liền vào chữ S của logo. Tách path chữ S từ `logo-on-light.svg` (6 path cam; xác định path nào là chữ S bằng cách render riêng từng path trong Chromium headless, không đoán) thành `public/brand/tail.svg` để làm: gạch chân từ khóa H1, đường lộ trình vẽ dần (cảnh ghim), đường nối mascot → CTA ở hero. Không thêm chữ ký nào khác (không blob, gradient, kính mờ).
+## Chữ ký thị giác: con mèo Sophie
+Mèo cam tách lớp đi theo người xem: đậu trên các khối, nhảy sang phần mới, vẫy chào khi rê chuột/chạm (spec `sophie-section/sections/16-meo.md`). Đường uốn chữ S trong cảnh ghim Lộ trình là phần phụ.
+**Không dùng khối màu tô sau chữ (`.kit-mark`)**: owner chê "trông AI" (15/11/2026). Nhấn từ khóa bằng màu chữ `--brand-ink`. Không thêm blob, gradient, kính mờ.
 
 ## Mascot
-Mèo cam vẫy tay (ảnh bìa) và mèo ngồi (logo). **Chưa có vector của mèo vẫy tay**, đang chờ Sophie (xem `docs/status.md`). Chỉ dùng ở 3 chỗ: hero, `/cam-on`, 404.
+- `CatRig` (vẽ tay theo mèo vẫy tay trên ảnh bìa): con mèo đi theo trang. Thay bằng file của designer khi có.
+- `Mascot` (mèo + chữ S tách từ logo, một path): dùng tĩnh ở `/cam-on`.
+- Logo header nội tuyến (`LogoInline`, nhóm `[data-logo-cat]`) nhún khi rê chuột.
 
 ## Dữ kiện thật (được phép đưa lên trang)
 - Mô hình: **1 giáo viên – 1 học viên**, online (Zoom/Meet). Học viên không tự ý học chung hay ghép buổi.

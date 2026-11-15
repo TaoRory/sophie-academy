@@ -13,7 +13,7 @@ export function FinalCta() {
         <Rise kind="pop" className="sheet bg-[var(--brand)] p-6 text-[var(--ink)] sm:p-10">
           <LeadForm />
         </Rise>
-        <Rise kind="pop" index={1} className="sheet flex flex-col justify-between gap-8 border border-[var(--line)] p-6 sm:p-10">
+        <Rise kind="pop" index={1} data-cat-perch="right" className="sheet flex flex-col justify-between gap-8 border border-[var(--line)] p-6 sm:p-10">
           <div>
             <h3 className="text-3xl">Muốn hỏi nhanh?</h3>
             <p className="mt-3 text-[var(--muted)]">Nhắn Sophie qua Zalo, bạn sẽ được trả lời trực tiếp.</p>

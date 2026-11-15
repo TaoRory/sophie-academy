@@ -2,7 +2,7 @@
 **Câu hỏi khách:** đây là gì, có hợp với mình không?
 
 ## Nội dung (`src/content/site.ts` → `hero`)
-- H1: "IELTS 1 kèm 1 online. Giáo viên 8.0 <mark>dạy riêng bạn</mark>." (cụm trong mark có gạch chân đuôi mèo).
+- H1: "IELTS 1 kèm 1 online. Giáo viên 8.0 dạy riêng bạn." Cụm "dạy riêng bạn" màu `--brand-ink`, **không** khối tô (owner bỏ).
 - Phụ đề hai sắc độ (nửa navy, nửa `--muted`, cùng cỡ): "Lộ trình riêng, kiểm tra mỗi tháng để chỉnh lại. Học ở đâu cũng được."
 - CTA: **Nhận lộ trình riêng** (→ `#dang-ky`, bọc `Magnetic`) · **Chat Zalo** (link Zalo từ `site.ts`).
 - 4 chip kỹ năng: Listening · Reading · Writing · Speaking (icon SVG nét, không emoji).
@@ -15,9 +15,8 @@ Lưới 2 cột (7/5), chữ căn trái. Chiều cao `min-height: 100svh` trừ 
 
 ## Motion (T1 + T0), timeline ≤ 1.5s
 1. `SplitReveal as="h1" trigger="load"` (H1 không bắt đầu từ opacity 0 ngoài mặt nạ dòng của recipe).
-2. Gạch chân đuôi mèo `.kit-draw` vẽ 0.8s `EASE.out`.
 3. Khung video `yPercent: 8 → 0`, rồi câu sửa bài: gạch từ sai, hiện từ đúng (0.6s).
-4. Mascot nháy mắt một lần (CSS keyframe 200ms).
+Mèo: `.hero-cat-static` trên khung (cho không JS / giảm chuyển động); khi có chuyển động thì `CatCompanion` thay thế (xem `16-meo.md`). Khung mô hình bọc `<div data-cat-perch="right">`.
 `Tilt` nhẹ cho khung mô hình (chỉ `MQ.fineHover`).
 
 ## Điện thoại
